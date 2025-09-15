@@ -8,7 +8,7 @@
 ┌─────────────────────────────────────────────────────────────────┐
 │                        Client Layer                             │
 ├─────────────────────────────────────────────────────────────────┤
-│  Web Browser  │  Mobile App  │  Admin Panel  │  Third-party    │
+│  Web Browser  │  Admin Panel  │  Third-party    │
 └─────────────────────────────────────────────────────────────────┘
                                 │
                                 ▼
@@ -50,7 +50,6 @@
 ### 1. Client Layer
 
 - **Web Browser**: Customer-facing e-commerce interface
-- **Mobile App**: Native mobile applications
 - **Admin Panel**: Administrative interface for managing products, orders, users
 - **Third-party Integrations**: Payment gateways, shipping providers
 

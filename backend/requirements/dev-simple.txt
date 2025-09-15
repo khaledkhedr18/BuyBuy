@@ -1,0 +1,49 @@
+# Django and Core Dependencies
+Django==4.2.7
+djangorestframework==3.14.0
+django-cors-headers==4.3.1
+django-environ==0.11.2
+
+# Database (using SQLite for development)
+# mysqlclient==2.2.0  # Commented out for now
+# django-mysql==3.15.0
+
+# Authentication & Security
+djangorestframework-simplejwt==5.3.0
+cryptography==41.0.7
+bcrypt==4.1.2
+
+# API Documentation
+drf-spectacular==0.26.5
+drf-spectacular-sidecar==2023.10.1
+
+# Caching (optional for development)
+redis==5.0.1
+django-redis==5.4.0
+
+# File Storage
+Pillow==10.1.0
+
+# Utilities
+python-decouple==3.8
+
+# Development Tools
+django-extensions==3.2.3
+django-debug-toolbar==4.2.0
+
+# Validation & Serialization
+django-filter==23.5
+
+# Development Dependencies
+pytest==7.4.3
+pytest-django==4.7.0
+factory-boy==3.3.0
+faker==20.1.0
+
+# Code Quality
+black==23.11.0
+flake8==6.1.0
+isort==5.12.0
+
+# Development Tools
+ipython==8.17.2

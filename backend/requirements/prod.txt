@@ -1,0 +1,19 @@
+# Include base requirements
+-r base.txt
+
+# Production Dependencies
+gunicorn==21.2.0
+whitenoise==6.6.0
+psycopg2-binary==2.9.9
+
+# Production Monitoring
+newrelic==9.2.0
+django-prometheus==2.3.1
+
+# Security
+django-security==0.20.0
+django-ratelimit==4.1.0
+
+# Performance
+django-cachalot==2.6.1
+django-compressor==4.4
