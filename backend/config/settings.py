@@ -80,14 +80,15 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 DATABASES = {
     'default': {
-        'ENGINE': config('DB_ENGINE', default='django.db.backends.sqlite3'),
-        'NAME': config('DB_NAME', default=BASE_DIR / 'db.sqlite3'),
-        'USER': config('DB_USER', default=''),
-        'PASSWORD': config('DB_PASSWORD', default=''),
-        'HOST': config('DB_HOST', default=''),
-        'PORT': config('DB_PORT', default=''),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'BuyBuy',        # the DB you created
+        'USER': 'root',        # the DB user
+        'PASSWORD': 'Gamedfashkh1@',# the DB password
+        'HOST': 'localhost',     # or '127.0.0.1'
+        'PORT': '3306',          # default MySQL port
     }
 }
+
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [

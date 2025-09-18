@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>BuyBuy Admin Panel</title>
+    <link
+      rel="stylesheet"
+      href="static/css/style.css"
+    />
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <div class="header-content">
+          <div class="logo">BuyBuy Admin</div>
+          <nav>
+            <ul>
+              <li>
+                <a
+                  href="#"
+                  class="nav-link"
+                  data-page="home"
+                  >Dashboard</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="nav-link"
+                  data-page="products"
+                  >Products</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="nav-link"
+                  data-page="categories"
+                  >Categories</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="nav-link"
+                  data-page="users"
+                  >Users</a
+                >
+              </li>
+            </ul>
+          </nav>
+          <div class="auth-buttons">
+            <button
+              id="login-btn"
+              class="btn btn-primary"
+            >
+              Login
+            </button>
+            <button
+              id="register-btn"
+              class="btn btn-outline"
+            >
+              Register
+            </button>
+            <button
+              id="logout-btn"
+              class="btn btn-outline"
+              style="display: none"
+            >
+              Logout
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="main-content">
+      <div class="container">
+        <div id="message-area"></div>
+
+        <!-- Home Page -->
+        <div
+          id="home-page"
+          class="page active"
+        >
+          <div class="card">
+            <div class="card-header">
+              <h2 class="card-title">Dashboard</h2>
+            </div>
+            <div class="card-body">
+              <p>
+                Welcome to the BuyBuy Admin Panel. Use this interface to manage
+                products, categories, and users.
+              </p>
+              <div class="d-flex justify-content-between mt-3">
+                <div
+                  class="card"
+                  style="width: 30%"
+                >
+                  <h3>Products</h3>
+                  <p id="products-count">0</p>
+                </div>
+                <div
+                  class="card"
+                  style="width: 30%"
+                >
+                  <h3>Categories</h3>
+                  <p id="categories-count">0</p>
+                </div>
+                <div
+                  class="card"
+                  style="width: 30%"
+                >
+                  <h3>Users</h3>
+                  <p id="users-count">0</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Products Page -->
+        <div
+          id="products-page"
+          class="page"
+        >
+          <div class="card">
+            <div class="card-header">
+              <h2 class="card-title">Products</h2>
+              <button
+                class="btn btn-primary"
+                id="add-product-btn"
+              >
+                Add Product
+              </button>
+            </div>
+            <div class="card-body">
+              <table id="products-table">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Category</th>
+                    <th>Stock</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- Product data will be inserted here -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Categories Page -->
+        <div
+          id="categories-page"
+          class="page"
+        >
+          <div class="card">
+            <div class="card-header">
+              <h2 class="card-title">Categories</h2>
+              <button
+                class="btn btn-primary"
+                id="add-category-btn"
+              >
+                Add Category
+              </button>
+            </div>
+            <div class="card-body">
+              <table id="categories-table">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Products</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- Category data will be inserted here -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Users Page -->
+        <div
+          id="users-page"
+          class="page"
+        >
+          <div class="card">
+            <div class="card-header">
+              <h2 class="card-title">Users</h2>
+            </div>
+            <div class="card-body">
+              <table id="users-table">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Name</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- User data will be inserted here -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Auth Forms -->
+        <div
+          id="login-form"
+          class="page"
+        >
+          <div class="card">
+            <div class="card-header">
+              <h2 class="card-title">Login</h2>
+            </div>
+            <div class="card-body">
+              <form id="login-form-data">
+                <div class="form-group">
+                  <label
+                    class="form-label"
+                    for="login-username"
+                    >Username</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="login-username"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label
+                    class="form-label"
+                    for="login-password"
+                    >Password</label
+                  >
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="login-password"
+                    required
+                  />
+                </div>
+                <button
+                  type="submit"
+                  class="btn btn-primary"
+                >
+                  Login
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-outline"
+                  id="cancel-login"
+                >
+                  Cancel
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <div
+          id="register-form"
+          class="page"
+        >
+          <div class="card">
+            <div class="card-header">
+              <h2 class="card-title">Register</h2>
+            </div>
+            <div class="card-body">
+              <form id="register-form-data">
+                <div class="form-group">
+                  <label
+                    class="form-label"
+                    for="register-username"
+                    >Username</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="register-username"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label
+                    class="form-label"
+                    for="register-email"
+                    >Email</label
+                  >
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="register-email"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label
+                    class="form-label"
+                    for="register-password"
+                    >Password</label
+                  >
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="register-password"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label
+                    class="form-label"
+                    for="register-firstname"
+                    >First Name</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="register-firstname"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label
+                    class="form-label"
+                    for="register-lastname"
+                    >Last Name</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="register-lastname"
+                    required
+                  />
+                </div>
+                <button
+                  type="submit"
+                  class="btn btn-primary"
+                >
+                  Register
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-outline"
+                  id="cancel-register"
+                >
+                  Cancel
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <div class="container">
+        <div class="footer-content">
+          <div class="logo">BuyBuy</div>
+          <p>&copy; 2024 BuyBuy E-Commerce. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="static/js/app.js"></script>
+  </body>
+</html>

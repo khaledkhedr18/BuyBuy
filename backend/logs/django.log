@@ -1,0 +1,278 @@
+INFO 2025-09-15 02:57:17,388 autoreload 102721 137080727347328 Watching for file changes with StatReloader
+WARNING 2025-09-15 02:58:42,237 log 102721 137080592135872 Not Found: /
+WARNING 2025-09-15 02:58:42,237 basehttp 102721 137080592135872 "GET / HTTP/1.1" 404 3256
+WARNING 2025-09-15 02:58:42,315 log 102721 137080592135872 Not Found: /favicon.ico
+WARNING 2025-09-15 02:58:42,316 basehttp 102721 137080592135872 "GET /favicon.ico HTTP/1.1" 404 3307
+WARNING 2025-09-15 02:58:55,185 log 102721 137080592135872 Not Found: /login
+WARNING 2025-09-15 02:58:55,185 basehttp 102721 137080592135872 "GET /login HTTP/1.1" 404 3289
+WARNING 2025-09-15 02:58:55,235 log 102721 137080592135872 Not Found: /favicon.ico
+INFO 2025-09-15 03:00:07,738 autoreload 102721 137080727347328 /home/khaled/Desktop/Software Courses/BuyBuy/backend/authentication/views.py changed, reloading.
+INFO 2025-09-15 03:00:08,136 autoreload 103462 132128804880512 Watching for file changes with StatReloader
+INFO 2025-09-15 03:00:11,435 autoreload 103462 132128804880512 /home/khaled/Desktop/Software Courses/BuyBuy/backend/authentication/views.py changed, reloading.
+INFO 2025-09-15 03:00:11,813 autoreload 103490 125276655288448 Watching for file changes with StatReloader
+INFO 2025-09-15 03:00:18,159 autoreload 103490 125276655288448 /home/khaled/Desktop/Software Courses/BuyBuy/backend/authentication/views.py changed, reloading.
+INFO 2025-09-15 03:00:18,498 autoreload 103520 123505424552064 Watching for file changes with StatReloader
+INFO 2025-09-15 03:01:22,689 autoreload 103520 123505424552064 /home/khaled/Desktop/Software Courses/BuyBuy/backend/authentication/views.py changed, reloading.
+INFO 2025-09-15 03:01:23,056 autoreload 103705 139813839696000 Watching for file changes with StatReloader
+INFO 2025-09-15 03:02:10,063 autoreload 103705 139813839696000 /home/khaled/Desktop/Software Courses/BuyBuy/backend/authentication/views.py changed, reloading.
+INFO 2025-09-15 03:02:10,393 autoreload 103884 138201966911616 Watching for file changes with StatReloader
+INFO 2025-09-15 03:02:20,680 autoreload 103884 138201966911616 /home/khaled/Desktop/Software Courses/BuyBuy/backend/authentication/views.py changed, reloading.
+INFO 2025-09-15 03:02:21,008 autoreload 103941 128480352444544 Watching for file changes with StatReloader
+INFO 2025-09-15 03:02:25,313 autoreload 103941 128480352444544 /home/khaled/Desktop/Software Courses/BuyBuy/backend/authentication/views.py changed, reloading.
+INFO 2025-09-15 03:02:25,663 autoreload 103968 126402590875776 Watching for file changes with StatReloader
+INFO 2025-09-15 03:05:21,687 autoreload 103968 126402590875776 /home/khaled/Desktop/Software Courses/BuyBuy/backend/authentication/serializers.py changed, reloading.
+INFO 2025-09-15 03:05:22,018 autoreload 104448 138819055943808 Watching for file changes with StatReloader
+INFO 2025-09-15 03:06:17,070 autoreload 104448 138819055943808 /home/khaled/Desktop/Software Courses/BuyBuy/backend/authentication/serializers.py changed, reloading.
+INFO 2025-09-15 03:06:17,445 autoreload 104617 130478845567104 Watching for file changes with StatReloader
+INFO 2025-09-15 03:06:57,317 autoreload 104617 130478845567104 /home/khaled/Desktop/Software Courses/BuyBuy/backend/authentication/models.py changed, reloading.
+INFO 2025-09-15 03:06:57,645 autoreload 104790 127708727922816 Watching for file changes with StatReloader
+INFO 2025-09-15 03:07:00,960 autoreload 104790 127708727922816 /home/khaled/Desktop/Software Courses/BuyBuy/backend/authentication/models.py changed, reloading.
+INFO 2025-09-15 03:07:01,297 autoreload 104821 128875520684160 Watching for file changes with StatReloader
+INFO 2025-09-15 03:07:11,560 autoreload 104821 128875520684160 /home/khaled/Desktop/Software Courses/BuyBuy/backend/authentication/models.py changed, reloading.
+INFO 2025-09-15 03:07:11,846 autoreload 104863 132481235128448 Watching for file changes with StatReloader
+INFO 2025-09-15 03:07:16,083 autoreload 104863 132481235128448 /home/khaled/Desktop/Software Courses/BuyBuy/backend/authentication/models.py changed, reloading.
+INFO 2025-09-15 03:07:16,384 autoreload 104891 123901048352896 Watching for file changes with StatReloader
+INFO 2025-09-15 03:07:21,652 autoreload 104891 123901048352896 /home/khaled/Desktop/Software Courses/BuyBuy/backend/authentication/models.py changed, reloading.
+INFO 2025-09-15 03:07:21,939 autoreload 104918 131135679058048 Watching for file changes with StatReloader
+INFO 2025-09-15 03:07:24,164 autoreload 104918 131135679058048 /home/khaled/Desktop/Software Courses/BuyBuy/backend/authentication/models.py changed, reloading.
+INFO 2025-09-15 03:07:24,444 autoreload 104950 128162411544704 Watching for file changes with StatReloader
+INFO 2025-09-15 03:07:26,674 autoreload 104950 128162411544704 /home/khaled/Desktop/Software Courses/BuyBuy/backend/authentication/models.py changed, reloading.
+INFO 2025-09-15 03:07:26,975 autoreload 104952 125884722167936 Watching for file changes with StatReloader
+INFO 2025-09-15 03:07:33,222 autoreload 104952 125884722167936 /home/khaled/Desktop/Software Courses/BuyBuy/backend/authentication/models.py changed, reloading.
+INFO 2025-09-15 03:07:33,504 autoreload 105087 124490142167168 Watching for file changes with StatReloader
+INFO 2025-09-15 03:07:35,733 autoreload 105087 124490142167168 /home/khaled/Desktop/Software Courses/BuyBuy/backend/authentication/models.py changed, reloading.
+INFO 2025-09-15 03:07:36,061 autoreload 105102 125314941091968 Watching for file changes with StatReloader
+INFO 2025-09-15 03:07:41,302 autoreload 105102 125314941091968 /home/khaled/Desktop/Software Courses/BuyBuy/backend/authentication/models.py changed, reloading.
+INFO 2025-09-15 03:07:41,633 autoreload 105133 139073908347008 Watching for file changes with StatReloader
+INFO 2025-09-15 03:07:44,876 autoreload 105133 139073908347008 /home/khaled/Desktop/Software Courses/BuyBuy/backend/authentication/models.py changed, reloading.
+INFO 2025-09-15 03:07:45,191 autoreload 105156 124249511575680 Watching for file changes with StatReloader
+INFO 2025-09-15 03:07:46,429 autoreload 105156 124249511575680 /home/khaled/Desktop/Software Courses/BuyBuy/backend/authentication/models.py changed, reloading.
+INFO 2025-09-15 03:07:46,729 autoreload 105165 136239129829504 Watching for file changes with StatReloader
+INFO 2025-09-15 03:07:51,976 autoreload 105165 136239129829504 /home/khaled/Desktop/Software Courses/BuyBuy/backend/authentication/models.py changed, reloading.
+INFO 2025-09-15 03:07:52,259 autoreload 105194 134612333985920 Watching for file changes with StatReloader
+INFO 2025-09-15 03:07:56,492 autoreload 105194 134612333985920 /home/khaled/Desktop/Software Courses/BuyBuy/backend/authentication/models.py changed, reloading.
+INFO 2025-09-15 03:07:56,797 autoreload 105223 133284917444736 Watching for file changes with StatReloader
+INFO 2025-09-15 03:08:02,041 autoreload 105223 133284917444736 /home/khaled/Desktop/Software Courses/BuyBuy/backend/authentication/models.py changed, reloading.
+INFO 2025-09-15 03:08:02,352 autoreload 105247 123270888145024 Watching for file changes with StatReloader
+INFO 2025-09-15 03:08:03,616 autoreload 105247 123270888145024 /home/khaled/Desktop/Software Courses/BuyBuy/backend/authentication/models.py changed, reloading.
+INFO 2025-09-15 03:08:03,973 autoreload 105282 131714336276608 Watching for file changes with StatReloader
+INFO 2025-09-15 03:08:06,236 autoreload 105282 131714336276608 /home/khaled/Desktop/Software Courses/BuyBuy/backend/authentication/models.py changed, reloading.
+INFO 2025-09-15 03:08:06,561 autoreload 105289 130245228421248 Watching for file changes with StatReloader
+INFO 2025-09-15 03:08:07,814 autoreload 105289 130245228421248 /home/khaled/Desktop/Software Courses/BuyBuy/backend/authentication/models.py changed, reloading.
+INFO 2025-09-15 03:08:08,146 autoreload 105304 125529226571904 Watching for file changes with StatReloader
+INFO 2025-09-15 03:08:10,416 autoreload 105304 125529226571904 /home/khaled/Desktop/Software Courses/BuyBuy/backend/authentication/models.py changed, reloading.
+INFO 2025-09-15 03:08:10,728 autoreload 105312 129506613244032 Watching for file changes with StatReloader
+INFO 2025-09-15 03:08:11,947 autoreload 105312 129506613244032 /home/khaled/Desktop/Software Courses/BuyBuy/backend/authentication/models.py changed, reloading.
+INFO 2025-09-15 03:08:12,255 autoreload 105325 126307706765440 Watching for file changes with StatReloader
+INFO 2025-09-15 03:08:19,597 autoreload 105325 126307706765440 /home/khaled/Desktop/Software Courses/BuyBuy/backend/authentication/models.py changed, reloading.
+INFO 2025-09-15 03:08:19,932 autoreload 105373 136106728009856 Watching for file changes with StatReloader
+INFO 2025-09-15 03:08:24,236 autoreload 105373 136106728009856 /home/khaled/Desktop/Software Courses/BuyBuy/backend/authentication/models.py changed, reloading.
+INFO 2025-09-15 03:08:24,557 autoreload 105405 135809114779776 Watching for file changes with StatReloader
+INFO 2025-09-15 03:08:31,897 autoreload 105405 135809114779776 /home/khaled/Desktop/Software Courses/BuyBuy/backend/authentication/models.py changed, reloading.
+INFO 2025-09-15 03:08:32,244 autoreload 105470 127038941130880 Watching for file changes with StatReloader
+INFO 2025-09-15 03:08:33,538 autoreload 105470 127038941130880 /home/khaled/Desktop/Software Courses/BuyBuy/backend/authentication/models.py changed, reloading.
+INFO 2025-09-15 03:08:33,865 autoreload 105543 124201565036672 Watching for file changes with StatReloader
+INFO 2025-09-15 03:08:36,133 autoreload 105543 124201565036672 /home/khaled/Desktop/Software Courses/BuyBuy/backend/authentication/models.py changed, reloading.
+INFO 2025-09-15 03:08:36,458 autoreload 105558 137471879446656 Watching for file changes with StatReloader
+INFO 2025-09-15 03:08:46,834 autoreload 105558 137471879446656 /home/khaled/Desktop/Software Courses/BuyBuy/backend/authentication/models.py changed, reloading.
+INFO 2025-09-15 03:08:47,161 autoreload 105602 134227852640384 Watching for file changes with StatReloader
+INFO 2025-09-15 03:09:07,733 autoreload 105602 134227852640384 /home/khaled/Desktop/Software Courses/BuyBuy/backend/authentication/models.py changed, reloading.
+INFO 2025-09-15 03:09:08,075 autoreload 105653 138606622179456 Watching for file changes with StatReloader
+INFO 2025-09-15 03:09:18,449 autoreload 105653 138606622179456 /home/khaled/Desktop/Software Courses/BuyBuy/backend/authentication/models.py changed, reloading.
+INFO 2025-09-15 03:09:18,773 autoreload 105701 139014781341824 Watching for file changes with StatReloader
+INFO 2025-09-15 03:09:31,051 autoreload 105701 139014781341824 /home/khaled/Desktop/Software Courses/BuyBuy/backend/authentication/models.py changed, reloading.
+INFO 2025-09-15 03:09:31,348 autoreload 105791 130155840553088 Watching for file changes with StatReloader
+INFO 2025-09-15 03:09:33,578 autoreload 105791 130155840553088 /home/khaled/Desktop/Software Courses/BuyBuy/backend/authentication/models.py changed, reloading.
+INFO 2025-09-15 03:09:33,861 autoreload 105876 136646907756672 Watching for file changes with StatReloader
+INFO 2025-09-15 03:09:37,097 autoreload 105876 136646907756672 /home/khaled/Desktop/Software Courses/BuyBuy/backend/authentication/models.py changed, reloading.
+INFO 2025-09-15 03:09:37,419 autoreload 105892 139151769632896 Watching for file changes with StatReloader
+INFO 2025-09-15 03:09:41,721 autoreload 105892 139151769632896 /home/khaled/Desktop/Software Courses/BuyBuy/backend/authentication/models.py changed, reloading.
+INFO 2025-09-15 03:09:42,051 autoreload 105907 126911442886784 Watching for file changes with StatReloader
+INFO 2025-09-15 03:09:43,314 autoreload 105907 126911442886784 /home/khaled/Desktop/Software Courses/BuyBuy/backend/authentication/models.py changed, reloading.
+INFO 2025-09-15 03:09:43,692 autoreload 105929 136099420577920 Watching for file changes with StatReloader
+INFO 2025-09-15 03:09:46,020 autoreload 105929 136099420577920 /home/khaled/Desktop/Software Courses/BuyBuy/backend/authentication/models.py changed, reloading.
+INFO 2025-09-15 03:09:46,360 autoreload 105933 129280182079616 Watching for file changes with StatReloader
+INFO 2025-09-15 03:09:47,607 autoreload 105933 129280182079616 /home/khaled/Desktop/Software Courses/BuyBuy/backend/authentication/models.py changed, reloading.
+INFO 2025-09-15 03:09:47,936 autoreload 105947 135896182415488 Watching for file changes with StatReloader
+INFO 2025-09-15 03:10:12,538 autoreload 105947 135896182415488 /home/khaled/Desktop/Software Courses/BuyBuy/backend/authentication/models.py changed, reloading.
+INFO 2025-09-15 03:10:12,865 autoreload 105988 136968745259136 Watching for file changes with StatReloader
+INFO 2025-09-15 03:11:14,077 autoreload 105988 136968745259136 /home/khaled/Desktop/Software Courses/BuyBuy/backend/authentication/views.py changed, reloading.
+INFO 2025-09-15 03:11:14,416 autoreload 106155 128906382475392 Watching for file changes with StatReloader
+INFO 2025-09-15 03:11:15,622 autoreload 106155 128906382475392 /home/khaled/Desktop/Software Courses/BuyBuy/backend/authentication/views.py changed, reloading.
+INFO 2025-09-15 03:11:15,949 autoreload 106169 132390456451200 Watching for file changes with StatReloader
+INFO 2025-09-15 03:11:35,411 autoreload 106169 132390456451200 /home/khaled/Desktop/Software Courses/BuyBuy/backend/authentication/views.py changed, reloading.
+INFO 2025-09-15 03:11:35,734 autoreload 106316 125549507985536 Watching for file changes with StatReloader
+INFO 2025-09-15 03:12:01,394 autoreload 106316 125549507985536 /home/khaled/Desktop/Software Courses/BuyBuy/backend/authentication/views.py changed, reloading.
+INFO 2025-09-15 03:12:01,718 autoreload 106376 133281320542336 Watching for file changes with StatReloader
+INFO 2025-09-15 03:12:03,988 autoreload 106376 133281320542336 /home/khaled/Desktop/Software Courses/BuyBuy/backend/authentication/views.py changed, reloading.
+INFO 2025-09-15 03:12:04,326 autoreload 106404 139550723231872 Watching for file changes with StatReloader
+INFO 2025-09-15 03:12:17,748 autoreload 106404 139550723231872 /home/khaled/Desktop/Software Courses/BuyBuy/backend/authentication/serializers.py changed, reloading.
+INFO 2025-09-15 03:12:18,096 autoreload 106434 133759268245632 Watching for file changes with StatReloader
+INFO 2025-09-15 03:12:22,306 autoreload 106434 133759268245632 /home/khaled/Desktop/Software Courses/BuyBuy/backend/authentication/serializers.py changed, reloading.
+INFO 2025-09-15 03:12:22,635 autoreload 106469 134476058529920 Watching for file changes with StatReloader
+INFO 2025-09-15 03:13:32,025 autoreload 106469 134476058529920 /home/khaled/Desktop/Software Courses/BuyBuy/backend/authentication/views.py changed, reloading.
+INFO 2025-09-15 03:13:32,392 autoreload 106734 133275109544064 Watching for file changes with StatReloader
+INFO 2025-09-15 03:13:33,645 autoreload 106734 133275109544064 /home/khaled/Desktop/Software Courses/BuyBuy/backend/authentication/views.py changed, reloading.
+INFO 2025-09-15 03:13:33,984 autoreload 106750 136654152188032 Watching for file changes with StatReloader
+INFO 2025-09-15 03:13:39,212 autoreload 106750 136654152188032 /home/khaled/Desktop/Software Courses/BuyBuy/backend/authentication/views.py changed, reloading.
+INFO 2025-09-15 03:13:39,536 autoreload 106780 127508485062784 Watching for file changes with StatReloader
+INFO 2025-09-15 03:13:45,798 autoreload 106780 127508485062784 /home/khaled/Desktop/Software Courses/BuyBuy/backend/authentication/views.py changed, reloading.
+INFO 2025-09-15 03:13:46,121 autoreload 106811 129834427109504 Watching for file changes with StatReloader
+INFO 2025-09-15 03:13:59,490 autoreload 106811 129834427109504 /home/khaled/Desktop/Software Courses/BuyBuy/backend/authentication/views.py changed, reloading.
+INFO 2025-09-15 03:13:59,818 autoreload 106844 126532331663488 Watching for file changes with StatReloader
+INFO 2025-09-15 03:14:04,041 autoreload 106844 126532331663488 /home/khaled/Desktop/Software Courses/BuyBuy/backend/authentication/views.py changed, reloading.
+INFO 2025-09-15 03:14:04,382 autoreload 106869 133861511430272 Watching for file changes with StatReloader
+INFO 2025-09-15 03:14:33,113 autoreload 106869 133861511430272 /home/khaled/Desktop/Software Courses/BuyBuy/backend/authentication/views.py changed, reloading.
+INFO 2025-09-15 03:14:33,457 autoreload 107026 132692041060480 Watching for file changes with StatReloader
+INFO 2025-09-15 03:15:44,912 autoreload 107026 132692041060480 /home/khaled/Desktop/Software Courses/BuyBuy/backend/authentication/views.py changed, reloading.
+INFO 2025-09-15 03:15:45,264 autoreload 107189 138062050545792 Watching for file changes with StatReloader
+INFO 2025-09-15 03:15:47,536 autoreload 107189 138062050545792 /home/khaled/Desktop/Software Courses/BuyBuy/backend/authentication/views.py changed, reloading.
+INFO 2025-09-15 03:15:48,005 autoreload 107215 132158778724480 Watching for file changes with StatReloader
+INFO 2025-09-15 03:15:51,288 autoreload 107215 132158778724480 /home/khaled/Desktop/Software Courses/BuyBuy/backend/authentication/views.py changed, reloading.
+INFO 2025-09-15 03:15:51,636 autoreload 107231 126018208264320 Watching for file changes with StatReloader
+INFO 2025-09-15 03:15:55,883 autoreload 107231 126018208264320 /home/khaled/Desktop/Software Courses/BuyBuy/backend/authentication/views.py changed, reloading.
+INFO 2025-09-15 03:15:56,254 autoreload 107259 139375685169280 Watching for file changes with StatReloader
+INFO 2025-09-15 03:15:57,418 autoreload 107259 139375685169280 /home/khaled/Desktop/Software Courses/BuyBuy/backend/authentication/views.py changed, reloading.
+INFO 2025-09-15 03:15:57,765 autoreload 107273 127265686110336 Watching for file changes with StatReloader
+INFO 2025-09-15 03:16:12,134 autoreload 107273 127265686110336 /home/khaled/Desktop/Software Courses/BuyBuy/backend/authentication/views.py changed, reloading.
+INFO 2025-09-15 03:16:12,469 autoreload 107311 124550713356416 Watching for file changes with StatReloader
+INFO 2025-09-15 03:16:26,851 autoreload 107311 124550713356416 /home/khaled/Desktop/Software Courses/BuyBuy/backend/authentication/views.py changed, reloading.
+INFO 2025-09-15 03:16:27,207 autoreload 107366 138841568358528 Watching for file changes with StatReloader
+INFO 2025-09-15 03:16:28,378 autoreload 107366 138841568358528 /home/khaled/Desktop/Software Courses/BuyBuy/backend/authentication/views.py changed, reloading.
+INFO 2025-09-15 03:16:28,716 autoreload 107380 137136729321600 Watching for file changes with StatReloader
+INFO 2025-09-15 03:17:50,994 autoreload 107380 137136729321600 /home/khaled/Desktop/Software Courses/BuyBuy/backend/authentication/views.py changed, reloading.
+INFO 2025-09-15 03:17:51,331 autoreload 107659 140669575389312 Watching for file changes with StatReloader
+INFO 2025-09-15 03:17:53,518 autoreload 107659 140669575389312 /home/khaled/Desktop/Software Courses/BuyBuy/backend/authentication/views.py changed, reloading.
+INFO 2025-09-15 03:17:53,870 autoreload 107687 133371997515904 Watching for file changes with StatReloader
+INFO 2025-09-15 03:18:49,788 autoreload 107687 133371997515904 /home/khaled/Desktop/Software Courses/BuyBuy/backend/authentication/views.py changed, reloading.
+INFO 2025-09-15 03:18:50,128 autoreload 107826 124937135034496 Watching for file changes with StatReloader
+INFO 2025-09-15 03:18:52,407 autoreload 107826 124937135034496 /home/khaled/Desktop/Software Courses/BuyBuy/backend/authentication/views.py changed, reloading.
+INFO 2025-09-15 03:18:52,804 autoreload 107853 136639520682112 Watching for file changes with StatReloader
+INFO 2025-09-15 03:19:43,865 autoreload 107853 136639520682112 /home/khaled/Desktop/Software Courses/BuyBuy/backend/authentication/views.py changed, reloading.
+INFO 2025-09-15 03:19:44,244 autoreload 108020 128738774487168 Watching for file changes with StatReloader
+INFO 2025-09-15 03:19:48,574 autoreload 108020 128738774487168 /home/khaled/Desktop/Software Courses/BuyBuy/backend/authentication/views.py changed, reloading.
+INFO 2025-09-15 03:19:48,952 autoreload 108051 138855929143424 Watching for file changes with StatReloader
+INFO 2025-09-15 03:19:59,356 autoreload 108051 138855929143424 /home/khaled/Desktop/Software Courses/BuyBuy/backend/authentication/views.py changed, reloading.
+INFO 2025-09-15 03:19:59,683 autoreload 108106 136773915197568 Watching for file changes with StatReloader
+INFO 2025-09-15 03:20:18,214 autoreload 108106 136773915197568 /home/khaled/Desktop/Software Courses/BuyBuy/backend/authentication/views.py changed, reloading.
+INFO 2025-09-15 03:20:18,578 autoreload 108155 127005329428608 Watching for file changes with StatReloader
+INFO 2025-09-15 03:20:21,874 autoreload 108155 127005329428608 /home/khaled/Desktop/Software Courses/BuyBuy/backend/authentication/views.py changed, reloading.
+INFO 2025-09-15 03:20:22,224 autoreload 108186 140604289970304 Watching for file changes with StatReloader
+INFO 2025-09-15 03:20:23,493 autoreload 108186 140604289970304 /home/khaled/Desktop/Software Courses/BuyBuy/backend/authentication/views.py changed, reloading.
+INFO 2025-09-15 03:20:23,840 autoreload 108196 125815113674880 Watching for file changes with StatReloader
+INFO 2025-09-15 03:22:10,734 autoreload 108196 125815113674880 /home/khaled/Desktop/Software Courses/BuyBuy/backend/authentication/views.py changed, reloading.
+INFO 2025-09-15 03:22:11,206 autoreload 108485 130820654956672 Watching for file changes with StatReloader
+INFO 2025-09-15 03:22:13,488 autoreload 108485 130820654956672 /home/khaled/Desktop/Software Courses/BuyBuy/backend/authentication/views.py changed, reloading.
+INFO 2025-09-15 03:22:13,846 autoreload 108514 127148523937920 Watching for file changes with StatReloader
+INFO 2025-09-15 03:22:19,175 autoreload 108514 127148523937920 /home/khaled/Desktop/Software Courses/BuyBuy/backend/authentication/views.py changed, reloading.
+INFO 2025-09-15 03:22:19,527 autoreload 108539 135827790430336 Watching for file changes with StatReloader
+INFO 2025-09-15 03:23:46,066 autoreload 108539 135827790430336 /home/khaled/Desktop/Software Courses/BuyBuy/backend/authentication/views.py changed, reloading.
+INFO 2025-09-15 03:23:46,443 autoreload 108835 131670011711616 Watching for file changes with StatReloader
+INFO 2025-09-15 03:23:48,727 autoreload 108835 131670011711616 /home/khaled/Desktop/Software Courses/BuyBuy/backend/authentication/views.py changed, reloading.
+INFO 2025-09-15 03:23:49,192 autoreload 108861 130712242004096 Watching for file changes with StatReloader
+INFO 2025-09-15 03:23:51,470 autoreload 108861 130712242004096 /home/khaled/Desktop/Software Courses/BuyBuy/backend/authentication/views.py changed, reloading.
+INFO 2025-09-15 03:23:51,794 autoreload 108866 138446042214528 Watching for file changes with StatReloader
+INFO 2025-09-15 03:24:11,339 autoreload 108866 138446042214528 /home/khaled/Desktop/Software Courses/BuyBuy/backend/authentication/views.py changed, reloading.
+INFO 2025-09-15 03:24:11,667 autoreload 108922 136174239633536 Watching for file changes with StatReloader
+INFO 2025-09-15 03:24:19,006 autoreload 108922 136174239633536 /home/khaled/Desktop/Software Courses/BuyBuy/backend/authentication/views.py changed, reloading.
+INFO 2025-09-15 03:24:19,336 autoreload 108965 131962653507712 Watching for file changes with StatReloader
+INFO 2025-09-15 03:24:28,707 autoreload 108965 131962653507712 /home/khaled/Desktop/Software Courses/BuyBuy/backend/authentication/views.py changed, reloading.
+INFO 2025-09-15 03:24:29,122 autoreload 109001 125543494533248 Watching for file changes with StatReloader
+INFO 2025-09-15 03:24:31,315 autoreload 109001 125543494533248 /home/khaled/Desktop/Software Courses/BuyBuy/backend/authentication/views.py changed, reloading.
+INFO 2025-09-15 03:24:31,662 autoreload 109072 129526204543104 Watching for file changes with StatReloader
+INFO 2025-09-15 03:24:35,869 autoreload 109072 129526204543104 /home/khaled/Desktop/Software Courses/BuyBuy/backend/authentication/views.py changed, reloading.
+INFO 2025-09-15 03:24:36,217 autoreload 109160 131900189540480 Watching for file changes with StatReloader
+INFO 2025-09-15 03:24:37,501 autoreload 109160 131900189540480 /home/khaled/Desktop/Software Courses/BuyBuy/backend/authentication/views.py changed, reloading.
+INFO 2025-09-15 03:24:37,831 autoreload 109168 129948540502144 Watching for file changes with StatReloader
+INFO 2025-09-15 03:26:14,658 autoreload 109168 129948540502144 /home/khaled/Desktop/Software Courses/BuyBuy/backend/authentication/views.py changed, reloading.
+INFO 2025-09-15 03:26:15,002 autoreload 109398 139827092811904 Watching for file changes with StatReloader
+INFO 2025-09-15 03:29:02,671 autoreload 111892 132444555337856 Watching for file changes with StatReloader
+WARNING 2025-09-15 03:29:09,600 log 111892 132444494292672 Not Found: /login
+WARNING 2025-09-15 03:29:09,601 basehttp 111892 132444494292672 "GET /login HTTP/1.1" 404 3289
+WARNING 2025-09-15 03:29:09,642 log 111892 132444494292672 Not Found: /favicon.ico
+INFO 2025-09-15 03:30:50,645 autoreload 112512 126615111213184 Watching for file changes with StatReloader
+WARNING 2025-09-15 03:30:54,313 log 112512 126615050204864 Not Found: /login
+WARNING 2025-09-15 03:30:54,313 basehttp 112512 126615050204864 "GET /login HTTP/1.1" 404 3289
+WARNING 2025-09-15 03:30:54,353 log 112512 126615050204864 Not Found: /favicon.ico
+WARNING 2025-09-15 03:30:55,922 log 112512 126615050204864 Not Found: /login
+WARNING 2025-09-15 03:30:55,922 basehttp 112512 126615050204864 "GET /login HTTP/1.1" 404 3289
+WARNING 2025-09-15 03:30:55,956 log 112512 126615050204864 Not Found: /favicon.ico
+WARNING 2025-09-15 03:30:56,128 log 112512 126615050204864 Not Found: /login
+WARNING 2025-09-15 03:30:56,128 basehttp 112512 126615050204864 "GET /login HTTP/1.1" 404 3289
+INFO 2025-09-15 03:31:16,915 autoreload 112528 125656851992704 Watching for file changes with StatReloader
+WARNING 2025-09-15 03:31:19,895 log 112528 125656717326016 Not Found: /login
+WARNING 2025-09-15 03:31:19,896 basehttp 112528 125656717326016 "GET /login HTTP/1.1" 404 3289
+INFO 2025-09-16 15:03:13,315 autoreload 21431 135144242192512 Watching for file changes with StatReloader
+WARNING 2025-09-16 15:03:15,347 log 21431 135144181130944 Not Found: /
+WARNING 2025-09-16 15:03:15,348 basehttp 21431 135144181130944 "GET / HTTP/1.1" 404 3256
+WARNING 2025-09-16 15:03:15,402 log 21431 135144181130944 Not Found: /favicon.ico
+WARNING 2025-09-16 15:03:22,326 log 21431 135144181130944 Not Found: /api/v1/auth
+WARNING 2025-09-16 15:03:22,326 basehttp 21431 135144181130944 "GET /api/v1/auth HTTP/1.1" 404 3307
+ERROR 2025-09-16 15:04:23,740 views 21431 135144098756288 Redis health check failed: Error 111 connecting to localhost:6379. Connection refused.
+ERROR 2025-09-16 15:04:23,741 log 21431 135144098756288 Service Unavailable: /health/
+ERROR 2025-09-16 15:04:23,741 basehttp 21431 135144098756288 "GET /health/ HTTP/1.1" 503 192
+ERROR 2025-09-16 15:04:36,237 views 21431 135144098756288 Redis health check failed: Error 111 connecting to localhost:6379. Connection refused.
+ERROR 2025-09-16 15:04:36,237 log 21431 135144098756288 Service Unavailable: /health/
+ERROR 2025-09-16 15:04:36,237 basehttp 21431 135144098756288 "GET /health/ HTTP/1.1" 503 192
+ERROR 2025-09-16 15:04:45,397 views 21431 135144098756288 Redis health check failed: Error 111 connecting to localhost:6379. Connection refused.
+ERROR 2025-09-16 15:04:45,397 log 21431 135144098756288 Service Unavailable: /health/
+ERROR 2025-09-16 15:04:45,397 basehttp 21431 135144098756288 "GET /health/ HTTP/1.1" 503 192
+INFO 2025-09-16 15:05:07,861 basehttp 21431 135144098756288 "POST /api/v1/auth/register/ HTTP/1.1" 201 675
+WARNING 2025-09-16 15:05:11,385 log 21431 135144098756288 Bad Request: /api/v1/auth/register/
+WARNING 2025-09-16 15:05:11,385 basehttp 21431 135144098756288 "POST /api/v1/auth/register/ HTTP/1.1" 400 107
+WARNING 2025-09-16 15:05:33,361 log 21431 135144181130944 Bad Request: /api/v1/auth/login/
+WARNING 2025-09-16 15:05:33,361 basehttp 21431 135144181130944 "POST /api/v1/auth/login/ HTTP/1.1" 400 37
+INFO 2025-09-16 15:05:46,671 basehttp 21431 135144181130944 "GET /api/v1/auth/login HTTP/1.1" 301 0
+WARNING 2025-09-16 15:05:46,679 log 21431 135144181130944 Method Not Allowed: /api/v1/auth/login/
+WARNING 2025-09-16 15:05:46,679 basehttp 21431 135144181130944 "GET /api/v1/auth/login/ HTTP/1.1" 405 40
+WARNING 2025-09-16 15:05:46,715 log 21431 135144098756288 Not Found: /favicon.ico
+WARNING 2025-09-16 15:05:46,715 basehttp 21431 135144098756288 "GET /favicon.ico HTTP/1.1" 404 3307
+INFO 2025-09-16 15:05:53,483 basehttp 21431 135144181130944 "GET /api/v1/auth/register HTTP/1.1" 301 0
+WARNING 2025-09-16 15:05:53,490 log 21431 135144181130944 Method Not Allowed: /api/v1/auth/register/
+WARNING 2025-09-16 15:05:53,490 basehttp 21431 135144181130944 "GET /api/v1/auth/register/ HTTP/1.1" 405 40
+WARNING 2025-09-16 15:05:53,514 log 21431 135144098756288 Not Found: /favicon.ico
+WARNING 2025-09-16 15:05:53,514 basehttp 21431 135144098756288 "GET /favicon.ico HTTP/1.1" 404 3307
+INFO 2025-09-16 15:06:04,664 basehttp 21431 135144181130944 "GET /admin/ HTTP/1.1" 302 0
+INFO 2025-09-16 15:06:04,747 basehttp 21431 135144181130944 "GET /admin/login/?next=/admin/ HTTP/1.1" 200 4178
+INFO 2025-09-16 15:06:04,826 basehttp 21431 135144181130944 "GET /static/admin/css/base.css HTTP/1.1" 200 21207
+INFO 2025-09-16 15:06:04,828 basehttp 21431 135144080398016 "GET /static/admin/css/dark_mode.css HTTP/1.1" 200 2929
+INFO 2025-09-16 15:06:04,829 basehttp 21431 135144063612608 "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 200 2694
+INFO 2025-09-16 15:06:04,829 basehttp 21431 135144046827200 "GET /static/admin/css/login.css HTTP/1.1" 200 958
+INFO 2025-09-16 15:06:04,830 basehttp 21431 135144072005312 "GET /static/admin/js/theme.js HTTP/1.1" 200 1943
+INFO 2025-09-16 15:06:04,830 basehttp 21431 135144055219904 "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 200 3063
+INFO 2025-09-16 15:06:04,830 basehttp 21431 135144080398016 "GET /static/admin/css/responsive.css HTTP/1.1" 200 18533
+INFO 2025-09-16 15:06:36,840 basehttp 21431 135144181130944 "GET /api/schema HTTP/1.1" 301 0
+INFO 2025-09-16 15:06:37,432 basehttp 21431 135144080398016 "GET /api/schema/ HTTP/1.1" 200 58266
+INFO 2025-09-16 21:42:29,397 autoreload 146217 124513883631744 Watching for file changes with StatReloader
+INFO 2025-09-17 18:15:33,331 autoreload 297720 129757729382528 Watching for file changes with StatReloader
+WARNING 2025-09-17 18:15:37,299 log 297720 129757659862720 Not Found: /
+WARNING 2025-09-17 18:15:37,300 basehttp 297720 129757659862720 "GET / HTTP/1.1" 404 3256
+WARNING 2025-09-17 18:17:14,252 log 297720 129757649372864 Unauthorized: /api/v1/products/
+WARNING 2025-09-17 18:17:14,253 basehttp 297720 129757649372864 "GET /api/v1/products/ HTTP/1.1" 401 58
+WARNING 2025-09-17 18:17:19,923 log 297720 129757649372864 Unauthorized: /api/v1/categories/
+WARNING 2025-09-17 18:17:19,923 basehttp 297720 129757649372864 "GET /api/v1/categories/ HTTP/1.1" 401 58
+WARNING 2025-09-17 18:17:20,521 log 297720 129757649372864 Unauthorized: /api/v1/products/
+WARNING 2025-09-17 18:17:20,522 basehttp 297720 129757649372864 "GET /api/v1/products/ HTTP/1.1" 401 58
+WARNING 2025-09-17 18:17:21,035 log 297720 129757649372864 Unauthorized: /api/v1/products/
+WARNING 2025-09-17 18:17:21,036 basehttp 297720 129757649372864 "GET /api/v1/products/ HTTP/1.1" 401 58
+WARNING 2025-09-17 18:17:22,662 log 297720 129757649372864 Unauthorized: /api/v1/products/
+WARNING 2025-09-17 18:17:22,663 basehttp 297720 129757649372864 "GET /api/v1/products/ HTTP/1.1" 401 58
+WARNING 2025-09-17 18:17:23,025 log 297720 129757649372864 Unauthorized: /api/v1/categories/
+WARNING 2025-09-17 18:17:23,025 basehttp 297720 129757649372864 "GET /api/v1/categories/ HTTP/1.1" 401 58
+WARNING 2025-09-17 18:17:23,891 log 297720 129757649372864 Unauthorized: /api/v1/products/
+WARNING 2025-09-17 18:17:23,892 basehttp 297720 129757649372864 "GET /api/v1/products/ HTTP/1.1" 401 58
+WARNING 2025-09-17 18:17:24,123 log 297720 129757649372864 Unauthorized: /api/v1/products/
+WARNING 2025-09-17 18:17:24,123 basehttp 297720 129757649372864 "GET /api/v1/products/ HTTP/1.1" 401 58
+WARNING 2025-09-17 18:17:24,539 log 297720 129757649372864 Unauthorized: /api/v1/products/
+WARNING 2025-09-17 18:17:24,540 basehttp 297720 129757649372864 "GET /api/v1/products/ HTTP/1.1" 401 58
+WARNING 2025-09-17 18:17:24,917 log 297720 129757649372864 Unauthorized: /api/v1/categories/
+WARNING 2025-09-17 18:17:24,917 basehttp 297720 129757649372864 "GET /api/v1/categories/ HTTP/1.1" 401 58
+WARNING 2025-09-17 18:17:25,783 log 297720 129757649372864 Unauthorized: /api/v1/products/
+WARNING 2025-09-17 18:17:25,783 basehttp 297720 129757649372864 "GET /api/v1/products/ HTTP/1.1" 401 58
+WARNING 2025-09-17 18:17:26,067 log 297720 129757649372864 Unauthorized: /api/v1/products/
+WARNING 2025-09-17 18:17:26,067 basehttp 297720 129757649372864 "GET /api/v1/products/ HTTP/1.1" 401 58
+WARNING 2025-09-17 18:17:26,841 log 297720 129757649372864 Unauthorized: /api/v1/categories/
+WARNING 2025-09-17 18:17:26,841 basehttp 297720 129757649372864 "GET /api/v1/categories/ HTTP/1.1" 401 58
+WARNING 2025-09-17 18:17:27,516 log 297720 129757649372864 Unauthorized: /api/v1/products/
+WARNING 2025-09-17 18:17:27,516 basehttp 297720 129757649372864 "GET /api/v1/products/ HTTP/1.1" 401 58
+INFO 2025-09-17 18:17:37,103 basehttp 297720 129757649372864 "OPTIONS /api/v1/auth/login/ HTTP/1.1" 200 0

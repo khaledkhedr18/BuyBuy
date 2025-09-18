@@ -8,7 +8,7 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth import authenticate
 from .models import User, UserProfile
-from .serializers import UserRegistrationSerializer, UserProfileSerializer
+from .serializers import UserRegistrationSerializer, UserProfileSerializer, UserProfileUpdateSerializer
 
 
 class RegisterView(generics.CreateAPIView):
@@ -26,8 +26,7 @@ class RegisterView(generics.CreateAPIView):
 
         # Generate JWT tokens
         refresh = RefreshToken.for_user(user)
-
-        return Response({
+        response_data = {
             'success': True,
             'data': {
                 'user': {
@@ -44,8 +43,9 @@ class RegisterView(generics.CreateAPIView):
                 }
             },
             'message': 'User registered successfully'
-        }, status=status.HTTP_201_CREATED)
+        }
 
+        return Response(response_data, status=status.HTTP_201_CREATED)
 
 class UserProfileView(generics.RetrieveAPIView):
     """
@@ -62,7 +62,7 @@ class UserProfileUpdateView(generics.UpdateAPIView):
     """
     Update current user's profile.
     """
-    serializer_class = UserProfileSerializer
+    serializer_class = UserProfileUpdateSerializer
     permission_classes = [IsAuthenticated]
 
     def get_object(self):
