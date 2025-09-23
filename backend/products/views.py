@@ -10,8 +10,14 @@ from rest_framework.filters import SearchFilter, OrderingFilter
 from django.db import models
 from .models import Product, ProductImage, ProductSpecification
 from .serializers import ProductSerializer, ProductImageSerializer, ProductSpecificationSerializer
+from django.contrib.auth.decorators import login_required
 
+from django.shortcuts import render
 
+@login_required
+def products_view(request):
+    products = Product.objects.all()
+    return render(request, "products.html", {"products": products})
 class ProductListView(generics.ListCreateAPIView):
     """
     List all products or create a new product.

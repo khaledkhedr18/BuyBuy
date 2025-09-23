@@ -8,6 +8,7 @@ from . import views
 app_name = 'categories'
 
 urlpatterns = [
+    path('page/', views.categories_view, name='categories'),
     # Category CRUD
     path('', views.CategoryListView.as_view(), name='category_list'),
     path('create/', views.CategoryCreateView.as_view(), name='category_create'),

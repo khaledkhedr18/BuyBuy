@@ -6,10 +6,14 @@ from django.http import JsonResponse
 from django.db import connection
 from django.core.cache import cache
 from django.utils import timezone
+from django.shortcuts import render
 import logging
 
 logger = logging.getLogger('buybuy')
 
+
+def index(request):
+    return render(request, 'index.html')
 
 def health_check(request):
     """

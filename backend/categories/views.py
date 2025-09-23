@@ -9,6 +9,17 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter, OrderingFilter
 from .models import Category
 from .serializers import CategorySerializer, CategoryTreeSerializer
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render
+from categories.models import Category
+from products.models import Product
+
+
+
+@login_required
+def categories_view(request):
+    categories = Category.objects.all()
+    return render(request, "categories.html", {"categories": categories})
 
 
 class CategoryListView(generics.ListCreateAPIView):

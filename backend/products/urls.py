@@ -9,12 +9,15 @@ app_name = 'products'
 
 urlpatterns = [
     # Product CRUD
+    # Template view for frontend Products page
+    path('page/', views.products_view, name='products'),
+
+    # API endpoints
     path('', views.ProductListView.as_view(), name='product_list'),
     path('create/', views.ProductCreateView.as_view(), name='product_create'),
     path('<int:pk>/', views.ProductDetailView.as_view(), name='product_detail'),
     path('<int:pk>/update/', views.ProductUpdateView.as_view(), name='product_update'),
     path('<int:pk>/delete/', views.ProductDeleteView.as_view(), name='product_delete'),
-
     # Product Images
     path('<int:pk>/images/', views.ProductImageView.as_view(), name='product_images'),
     path('<int:pk>/images/upload/', views.ProductImageUploadView.as_view(), name='product_image_upload'),

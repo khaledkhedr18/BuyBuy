@@ -276,3 +276,219 @@ WARNING 2025-09-17 18:17:26,841 basehttp 297720 129757649372864 "GET /api/v1/cat
 WARNING 2025-09-17 18:17:27,516 log 297720 129757649372864 Unauthorized: /api/v1/products/
 WARNING 2025-09-17 18:17:27,516 basehttp 297720 129757649372864 "GET /api/v1/products/ HTTP/1.1" 401 58
 INFO 2025-09-17 18:17:37,103 basehttp 297720 129757649372864 "OPTIONS /api/v1/auth/login/ HTTP/1.1" 200 0
+INFO 2025-09-18 12:43:09,690 autoreload 301325 132450698211456 Watching for file changes with StatReloader
+ERROR 2025-09-18 12:43:12,603 log 301325 132450628474560 Internal Server Error: /
+Traceback (most recent call last):
+  File "/home/khaled/Desktop/Software Courses/BuyBuy/backend/venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/khaled/Desktop/Software Courses/BuyBuy/backend/venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/khaled/Desktop/Software Courses/BuyBuy/backend/common/views.py", line 16, in index
+    return render(request, 'index.html')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/khaled/Desktop/Software Courses/BuyBuy/backend/venv/lib/python3.12/site-packages/django/shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/khaled/Desktop/Software Courses/BuyBuy/backend/venv/lib/python3.12/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/khaled/Desktop/Software Courses/BuyBuy/backend/venv/lib/python3.12/site-packages/django/template/loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: index.html
+ERROR 2025-09-18 12:43:12,604 basehttp 301325 132450628474560 "GET / HTTP/1.1" 500 93458
+ERROR 2025-09-18 12:43:14,033 log 301325 132450628474560 Internal Server Error: /
+Traceback (most recent call last):
+  File "/home/khaled/Desktop/Software Courses/BuyBuy/backend/venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/khaled/Desktop/Software Courses/BuyBuy/backend/venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/khaled/Desktop/Software Courses/BuyBuy/backend/common/views.py", line 16, in index
+    return render(request, 'index.html')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/khaled/Desktop/Software Courses/BuyBuy/backend/venv/lib/python3.12/site-packages/django/shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/khaled/Desktop/Software Courses/BuyBuy/backend/venv/lib/python3.12/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/khaled/Desktop/Software Courses/BuyBuy/backend/venv/lib/python3.12/site-packages/django/template/loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: index.html
+ERROR 2025-09-18 12:43:14,034 basehttp 301325 132450628474560 "GET / HTTP/1.1" 500 93458
+INFO 2025-09-18 12:43:42,551 autoreload 301325 132450698211456 /home/khaled/Desktop/Software Courses/BuyBuy/backend/common/views.py changed, reloading.
+INFO 2025-09-18 12:43:42,931 autoreload 301448 134121140576384 Watching for file changes with StatReloader
+INFO 2025-09-18 12:43:46,225 autoreload 301448 134121140576384 /home/khaled/Desktop/Software Courses/BuyBuy/backend/common/views.py changed, reloading.
+INFO 2025-09-18 12:43:46,588 autoreload 301493 137250264187008 Watching for file changes with StatReloader
+INFO 2025-09-18 12:43:50,902 autoreload 301493 137250264187008 /home/khaled/Desktop/Software Courses/BuyBuy/backend/common/views.py changed, reloading.
+INFO 2025-09-18 12:43:51,268 autoreload 301519 131009078329472 Watching for file changes with StatReloader
+ERROR 2025-09-18 12:43:53,192 log 301519 131009008441024 Internal Server Error: /
+Traceback (most recent call last):
+  File "/home/khaled/Desktop/Software Courses/BuyBuy/backend/venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/khaled/Desktop/Software Courses/BuyBuy/backend/venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/khaled/Desktop/Software Courses/BuyBuy/backend/common/views.py", line 16, in index
+    return render(request, 'frontend/static/index.html')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/khaled/Desktop/Software Courses/BuyBuy/backend/venv/lib/python3.12/site-packages/django/shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/khaled/Desktop/Software Courses/BuyBuy/backend/venv/lib/python3.12/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/khaled/Desktop/Software Courses/BuyBuy/backend/venv/lib/python3.12/site-packages/django/template/loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: frontend/static/index.html
+ERROR 2025-09-18 12:43:53,193 basehttp 301519 131009008441024 "GET / HTTP/1.1" 500 93874
+ERROR 2025-09-18 12:43:53,843 log 301519 131009008441024 Internal Server Error: /
+Traceback (most recent call last):
+  File "/home/khaled/Desktop/Software Courses/BuyBuy/backend/venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/khaled/Desktop/Software Courses/BuyBuy/backend/venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/khaled/Desktop/Software Courses/BuyBuy/backend/common/views.py", line 16, in index
+    return render(request, 'frontend/static/index.html')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/khaled/Desktop/Software Courses/BuyBuy/backend/venv/lib/python3.12/site-packages/django/shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/khaled/Desktop/Software Courses/BuyBuy/backend/venv/lib/python3.12/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/khaled/Desktop/Software Courses/BuyBuy/backend/venv/lib/python3.12/site-packages/django/template/loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: frontend/static/index.html
+ERROR 2025-09-18 12:43:53,844 basehttp 301519 131009008441024 "GET / HTTP/1.1" 500 93874
+ERROR 2025-09-18 12:43:54,054 log 301519 131009008441024 Internal Server Error: /
+Traceback (most recent call last):
+  File "/home/khaled/Desktop/Software Courses/BuyBuy/backend/venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/khaled/Desktop/Software Courses/BuyBuy/backend/venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/khaled/Desktop/Software Courses/BuyBuy/backend/common/views.py", line 16, in index
+    return render(request, 'frontend/static/index.html')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/khaled/Desktop/Software Courses/BuyBuy/backend/venv/lib/python3.12/site-packages/django/shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/khaled/Desktop/Software Courses/BuyBuy/backend/venv/lib/python3.12/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/khaled/Desktop/Software Courses/BuyBuy/backend/venv/lib/python3.12/site-packages/django/template/loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: frontend/static/index.html
+ERROR 2025-09-18 12:43:54,055 basehttp 301519 131009008441024 "GET / HTTP/1.1" 500 93874
+INFO 2025-09-18 12:44:06,840 autoreload 301519 131009078329472 /home/khaled/Desktop/Software Courses/BuyBuy/backend/common/views.py changed, reloading.
+INFO 2025-09-18 12:44:07,215 autoreload 301571 139544966996096 Watching for file changes with StatReloader
+INFO 2025-09-18 12:44:08,505 autoreload 301571 139544966996096 /home/khaled/Desktop/Software Courses/BuyBuy/backend/common/views.py changed, reloading.
+INFO 2025-09-18 12:44:08,884 autoreload 301589 125389479891072 Watching for file changes with StatReloader
+ERROR 2025-09-18 12:44:12,776 log 301589 125389410219712 Internal Server Error: /
+Traceback (most recent call last):
+  File "/home/khaled/Desktop/Software Courses/BuyBuy/backend/venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/khaled/Desktop/Software Courses/BuyBuy/backend/venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/khaled/Desktop/Software Courses/BuyBuy/backend/common/views.py", line 16, in index
+    return render(request, '../frontend/static/index.html')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/khaled/Desktop/Software Courses/BuyBuy/backend/venv/lib/python3.12/site-packages/django/shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/khaled/Desktop/Software Courses/BuyBuy/backend/venv/lib/python3.12/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/khaled/Desktop/Software Courses/BuyBuy/backend/venv/lib/python3.12/site-packages/django/template/loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: ../frontend/static/index.html
+ERROR 2025-09-18 12:44:12,777 basehttp 301589 125389410219712 "GET / HTTP/1.1" 500 90645
+INFO 2025-09-18 12:44:22,425 autoreload 301589 125389479891072 /home/khaled/Desktop/Software Courses/BuyBuy/backend/common/views.py changed, reloading.
+INFO 2025-09-18 12:44:22,798 autoreload 301655 124335791575168 Watching for file changes with StatReloader
+INFO 2025-09-18 12:45:03,785 autoreload 301655 124335791575168 /home/khaled/Desktop/Software Courses/BuyBuy/backend/config/settings.py changed, reloading.
+INFO 2025-09-18 12:45:04,156 autoreload 301714 140140977791104 Watching for file changes with StatReloader
+INFO 2025-09-18 12:45:05,425 autoreload 301714 140140977791104 /home/khaled/Desktop/Software Courses/BuyBuy/backend/config/settings.py changed, reloading.
+INFO 2025-09-18 12:45:05,781 autoreload 301730 137216679796864 Watching for file changes with StatReloader
+INFO 2025-09-18 12:45:10,100 autoreload 301730 137216679796864 /home/khaled/Desktop/Software Courses/BuyBuy/backend/config/settings.py changed, reloading.
+INFO 2025-09-18 12:45:10,455 autoreload 301756 123233275003008 Watching for file changes with StatReloader
+INFO 2025-09-18 12:45:44,278 autoreload 301756 123233275003008 /home/khaled/Desktop/Software Courses/BuyBuy/backend/config/settings.py changed, reloading.
+INFO 2025-09-18 12:45:44,664 autoreload 301790 128393369542784 Watching for file changes with StatReloader
+INFO 2025-09-18 12:45:45,928 autoreload 301790 128393369542784 /home/khaled/Desktop/Software Courses/BuyBuy/backend/config/settings.py changed, reloading.
+INFO 2025-09-18 12:45:46,316 autoreload 301806 124085079670912 Watching for file changes with StatReloader
+INFO 2025-09-18 12:46:16,072 autoreload 301806 124085079670912 /home/khaled/Desktop/Software Courses/BuyBuy/backend/config/settings.py changed, reloading.
+INFO 2025-09-18 12:46:16,439 autoreload 301849 132691340525696 Watching for file changes with StatReloader
+INFO 2025-09-18 12:46:25,827 autoreload 301849 132691340525696 /home/khaled/Desktop/Software Courses/BuyBuy/backend/common/views.py changed, reloading.
+INFO 2025-09-18 12:46:26,187 autoreload 301899 137516030738560 Watching for file changes with StatReloader
+ERROR 2025-09-18 12:46:27,785 log 301899 137515960972992 Internal Server Error: /
+Traceback (most recent call last):
+  File "/home/khaled/Desktop/Software Courses/BuyBuy/backend/venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/khaled/Desktop/Software Courses/BuyBuy/backend/venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/khaled/Desktop/Software Courses/BuyBuy/backend/common/views.py", line 16, in index
+    return render(request, 'index.html')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/khaled/Desktop/Software Courses/BuyBuy/backend/venv/lib/python3.12/site-packages/django/shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/khaled/Desktop/Software Courses/BuyBuy/backend/venv/lib/python3.12/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/khaled/Desktop/Software Courses/BuyBuy/backend/venv/lib/python3.12/site-packages/django/template/loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: index.html
+ERROR 2025-09-18 12:46:27,786 basehttp 301899 137515960972992 "GET / HTTP/1.1" 500 93474
+ERROR 2025-09-18 12:46:28,632 log 301899 137515960972992 Internal Server Error: /
+Traceback (most recent call last):
+  File "/home/khaled/Desktop/Software Courses/BuyBuy/backend/venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/khaled/Desktop/Software Courses/BuyBuy/backend/venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/khaled/Desktop/Software Courses/BuyBuy/backend/common/views.py", line 16, in index
+    return render(request, 'index.html')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/khaled/Desktop/Software Courses/BuyBuy/backend/venv/lib/python3.12/site-packages/django/shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/khaled/Desktop/Software Courses/BuyBuy/backend/venv/lib/python3.12/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/khaled/Desktop/Software Courses/BuyBuy/backend/venv/lib/python3.12/site-packages/django/template/loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: index.html
+ERROR 2025-09-18 12:46:28,633 basehttp 301899 137515960972992 "GET / HTTP/1.1" 500 93474
+ERROR 2025-09-18 12:46:28,828 log 301899 137515960972992 Internal Server Error: /
+Traceback (most recent call last):
+  File "/home/khaled/Desktop/Software Courses/BuyBuy/backend/venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/khaled/Desktop/Software Courses/BuyBuy/backend/venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/khaled/Desktop/Software Courses/BuyBuy/backend/common/views.py", line 16, in index
+    return render(request, 'index.html')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/khaled/Desktop/Software Courses/BuyBuy/backend/venv/lib/python3.12/site-packages/django/shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/khaled/Desktop/Software Courses/BuyBuy/backend/venv/lib/python3.12/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/khaled/Desktop/Software Courses/BuyBuy/backend/venv/lib/python3.12/site-packages/django/template/loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: index.html
+ERROR 2025-09-18 12:46:28,829 basehttp 301899 137515960972992 "GET / HTTP/1.1" 500 93474
