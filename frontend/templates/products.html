@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+ {% block title %}Products | BuyBuy
+ {% endblock %}
+ {% block content %}
+<div class="card">
+  <div class="card-header">
+    <h2 class="card-title">Products</h2>
+  </div>
+  <div class="card-body">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Price</th>
+          <th>Stock</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for product in products %}
+        <tr>
+          <td>{{ product.id }}</td>
+          <td>{{ product.name }}</td>
+          <td>{{ product.price }}</td>
+          <td>{{ product.stock }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="4">No products found.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

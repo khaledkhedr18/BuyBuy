@@ -1,0 +1,76 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>{% block title %}BuyBuy Admin{% endblock %}</title>
+    <link
+      rel="stylesheet"
+      href="{% static 'css/style.css' %}"
+    />
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <div class="header-content">
+          <div class="logo">BuyBuy Admin</div>
+          <nav>
+            <ul>
+              <li><a href="{% url 'index' %}">Dashboard</a></li>
+              <li><a href="{% url 'products:products' %}">Products</a></li>
+              <li>
+                <a href="{% url 'categories:categories' %}">Categories</a>
+              </li>
+              <li><a href="{% url 'users:users' %}">Users</a></li>
+            </ul>
+          </nav>
+          <div class="auth-buttons">
+            {% if user.is_authenticated %}
+            <form
+              method="post"
+              action="{% url 'authentication:logout' %}"
+            >
+              {% csrf_token %}
+              <button
+                type="submit"
+                class="btn btn-outline"
+              >
+                Logout
+              </button>
+            </form>
+            {% else %}
+            <a
+              href="{% url 'authentication:login' %}"
+              class="btn btn-primary"
+              >Login</a
+            >
+            <a
+              href="{% url 'authentication:register' %}"
+              class="btn btn-outline"
+              >Register</a
+            >
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="main-content">
+      <div class="container">{% block content %}{% endblock %}</div>
+    </main>
+
+    <footer>
+      <div class="container">
+        <div class="footer-content">
+          <div class="logo">BuyBuy</div>
+          <p>&copy; 2024 BuyBuy E-Commerce. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
