@@ -1,36 +1,73 @@
 {% extends "base.html" %}
- {% block title %}Products | BuyBuy
- {% endblock %}
- {% block content %}
-<div class="card">
-  <div class="card-header">
-    <h2 class="card-title">Products</h2>
-  </div>
-  <div class="card-body">
-    <table>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Name</th>
-          <th>Price</th>
-          <th>Stock</th>
-        </tr>
-      </thead>
-      <tbody>
+{% block title %}Products | BuyBuy{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="card">
+    <div class="card-header">
+      <h2 class="card-title">All Products</h2>
+      <a
+        href="{% url 'products:add_product' %}"
+        class="btn btn-primary"
+        >Add Product</a
+      >
+    </div>
+    <div class="card-body">
+      {% if products %}
+      <div class="product-grid">
         {% for product in products %}
-        <tr>
-          <td>{{ product.id }}</td>
-          <td>{{ product.name }}</td>
-          <td>{{ product.price }}</td>
-          <td>{{ product.stock }}</td>
-        </tr>
-        {% empty %}
-        <tr>
-          <td colspan="4">No products found.</td>
-        </tr>
+        <div class="product-card">
+          {% if product.image_url %}
+          <img
+            src="{{ product.image_url }}"
+            alt="{{ product.name }}"
+            class="product-image"
+          />
+          {% else %}
+          <div class="product-image"></div>
+          {% endif %}
+          <div class="product-info">
+            <h3 class="product-title">{{ product.name }}</h3>
+            <div class="product-price">${{ product.price }}</div>
+            <div class="product-seller">
+              Sold by: {{ product.seller.username }}
+            </div>
+            <div class="product-actions">
+              {% if product.seller != user %}
+              <form
+                method="post"
+                action="{% url 'products:add_to_cart' product.id %}"
+                style="display: inline"
+              >
+                {% csrf_token %}
+                <input
+                  type="hidden"
+                  name="quantity"
+                  value="1"
+                />
+                <button
+                  type="submit"
+                  class="btn btn-success btn-sm"
+                >
+                  Add to Cart
+                </button>
+              </form>
+              {% else %}
+              <span class="btn btn-sm btn-outline">Your Product</span>
+              {% endif %}
+              <a
+                href="{% url 'products:product_detail' product.id %}"
+                class="btn btn-outline btn-sm"
+                >View Details</a
+              >
+            </div>
+          </div>
+        </div>
         {% endfor %}
-      </tbody>
-    </table>
+      </div>
+      {% else %}
+      <p class="text-center">No products available.</p>
+      {% endif %}
+    </div>
   </div>
 </div>
 {% endblock %}

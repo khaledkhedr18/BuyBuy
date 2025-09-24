@@ -1,0 +1,164 @@
+{% extends "base.html" %} {% block title %}My Sales | BuyBuy
+{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="card">
+    <div class="card-header">
+      <h2 class="card-title">My Sales</h2>
+    </div>
+    <div class="card-body">
+      {% if sales %}
+      <div class="sales-summary mb-4">
+        <div class="row">
+          <div class="col-md-3">
+            <div class="stat-card">
+              <h3>{{ sales|length }}</h3>
+              <p>Total Orders</p>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="stat-card">
+              <h3>${{ total_sales|default:"0.00" }}</h3>
+              <p>Total Sales</p>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="stat-card">
+              <h3>{{ pending_orders|default:"0" }}</h3>
+              <p>Pending Orders</p>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="stat-card">
+              <h3>{{ completed_orders|default:"0" }}</h3>
+              <p>Completed Orders</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Order #</th>
+              <th>Customer</th>
+              <th>Product</th>
+              <th>Quantity</th>
+              <th>Price</th>
+              <th>Total</th>
+              <th>Status</th>
+              <th>Date</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for sale in sales %}
+            <tr>
+              <td>
+                <a href="{% url 'products:order_detail' sale.order.id %}"
+                  >#{{ sale.order.id }}</a
+                >
+              </td>
+              <td>{{ sale.order.customer.username }}</td>
+              <td>
+                <div class="sale-product">
+                  <a href="{% url 'products:product_detail' sale.product.id %}"
+                    >{{ sale.product.name }}</a
+                  >
+                </div>
+              </td>
+              <td>{{ sale.quantity }}</td>
+              <td>${{ sale.price }}</td>
+              <td>${{ sale.get_subtotal }}</td>
+              <td>
+                <span class="status-badge status-{{ sale.order.status|lower }}"
+                  >{{ sale.order.get_status_display }}</span
+                >
+              </td>
+              <td>{{ sale.order.created_at|date:"M j, Y" }}</td>
+              <td>
+                <div class="btn-group">
+                  <a
+                    href="{% url 'products:order_detail' sale.order.id %}"
+                    class="btn btn-sm btn-outline"
+                    >View</a
+                  >
+                  {% if sale.order.status == 'pending' %}
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-success"
+                    onclick="updateOrderStatus({{ sale.order.id }}, 'processing')"
+                  >
+                    Mark Processing
+                  </button>
+                  {% elif sale.order.status == 'processing' %}
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-success"
+                    onclick="updateOrderStatus({{ sale.order.id }}, 'shipped')"
+                  >
+                    Mark Shipped
+                  </button>
+                  {% elif sale.order.status == 'shipped' %}
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-success"
+                    onclick="updateOrderStatus({{ sale.order.id }}, 'delivered')"
+                  >
+                    Mark Delivered
+                  </button>
+                  {% endif %}
+                </div>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% else %}
+      <div class="text-center py-4">
+        <h4>No Sales Yet</h4>
+        <p>
+          You haven't made any sales yet. Start by adding products to your
+          store!
+        </p>
+        <a
+          href="{% url 'products:add_product' %}"
+          class="btn btn-primary"
+          >Add Your First Product</a
+        >
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<script>
+  function updateOrderStatus(orderId, newStatus) {
+    if (confirm('Update order status to ' + newStatus + '?')) {
+      var form = document.createElement('form');
+      form.method = 'POST';
+      form.action = '/products/orders/' + orderId + '/update-status/';
+
+      var csrfToken = document.querySelector(
+        '[name=csrfmiddlewaretoken]',
+      ).value;
+      var csrfInput = document.createElement('input');
+      csrfInput.type = 'hidden';
+      csrfInput.name = 'csrfmiddlewaretoken';
+      csrfInput.value = csrfToken;
+      form.appendChild(csrfInput);
+
+      var statusInput = document.createElement('input');
+      statusInput.type = 'hidden';
+      statusInput.name = 'status';
+      statusInput.value = newStatus;
+      form.appendChild(statusInput);
+
+      document.body.appendChild(form);
+      form.submit();
+    }
+  }
+</script>
+{% endblock %}

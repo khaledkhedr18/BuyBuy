@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+{% block title %}My Products | BuyBuy{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="card">
+    <div class="card-header">
+      <h2 class="card-title">My Products</h2>
+      <a
+        href="{% url 'products:add_product' %}"
+        class="btn btn-primary"
+        >Add New Product</a
+      >
+    </div>
+    <div class="card-body">
+      {% if products %}
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Image</th>
+              <th>Name</th>
+              <th>Category</th>
+              <th>Price</th>
+              <th>Stock</th>
+              <th>Status</th>
+              <th>Added</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for product in products %}
+            <tr>
+              <td>
+                {% if product.image_url %}
+                <img
+                  src="{{ product.image_url }}"
+                  alt="{{ product.name }}"
+                  class="product-thumbnail"
+                />
+                {% else %}
+                <div class="product-thumbnail-placeholder"></div>
+                {% endif %}
+              </td>
+              <td>
+                <a href="{% url 'products:product_detail' product.id %}"
+                  >{{ product.name }}</a
+                >
+              </td>
+              <td>{{ product.category.name }}</td>
+              <td>${{ product.price }}</td>
+              <td>{{ product.stock_quantity }}</td>
+              <td>
+                {% if product.stock_quantity > 0 %}
+                <span class="badge badge-success">Available</span>
+                {% else %}
+                <span class="badge badge-danger">Out of Stock</span>
+                {% endif %}
+              </td>
+              <td>{{ product.created_at|date:"M j, Y" }}</td>
+              <td>
+                <div class="btn-group">
+                  <a
+                    href="{% url 'products:product_detail' product.id %}"
+                    class="btn btn-sm btn-outline"
+                    >View</a
+                  >
+                  <a
+                    href="{% url 'products:edit_product' product.id %}"
+                    class="btn btn-sm btn-secondary"
+                    >Edit</a
+                  >
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-danger"
+                    onclick="confirmDelete('{{ product.name }}', '{% url 'products:delete_product' product.id %}')"
+                  >
+                    Delete
+                  </button>
+                </div>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% else %}
+      <div class="text-center py-4">
+        <h4>No Products Yet</h4>
+        <p>
+          You haven't added any products. Start selling by adding your first
+          product!
+        </p>
+        <a
+          href="{% url 'products:add_product' %}"
+          class="btn btn-primary"
+          >Add Your First Product</a
+        >
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<script>
+  function confirmDelete(productName, deleteUrl) {
+    if (
+      confirm(
+        'Are you sure you want to delete "' +
+          productName +
+          '"? This action cannot be undone.',
+      )
+    ) {
+      // Create a form and submit it
+      var form = document.createElement('form');
+      form.method = 'POST';
+      form.action = deleteUrl;
+
+      var csrfToken = document.querySelector(
+        '[name=csrfmiddlewaretoken]',
+      ).value;
+      var csrfInput = document.createElement('input');
+      csrfInput.type = 'hidden';
+      csrfInput.name = 'csrfmiddlewaretoken';
+      csrfInput.value = csrfToken;
+      form.appendChild(csrfInput);
+
+      document.body.appendChild(form);
+      form.submit();
+    }
+  }
+</script>
+{% endblock %}

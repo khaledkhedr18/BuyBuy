@@ -13,16 +13,18 @@ from common.views import index
 urlpatterns = [
     # Admin
     path('admin/', admin.site.urls),
+
+    # Frontend URLs (template-based)
+    path('', include('authentication.urls')),
+    path('accounts/', include('authentication.urls')),
     path('products/', include('products.urls')),
     path('categories/', include('categories.urls')),
     path('users/', include('authentication.user_urls')),
-
 
     # API Documentation
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
     path('api/docs/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
     path('api/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
-
 
     # API v1
     path('api/v1/auth/', include('authentication.urls')),
@@ -32,7 +34,6 @@ urlpatterns = [
 
     # Health Check
     path('health/', include('common.urls')),
-    re_path(r'^.*$', index, name='index'),
 
 ]
 

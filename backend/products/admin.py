@@ -3,7 +3,7 @@ Admin configuration for products app.
 """
 
 from django.contrib import admin
-from .models import Product, ProductImage, ProductSpecification
+from .models import Product, ProductImage, ProductSpecification, Cart, CartItem, Order, OrderItem
 
 
 class ProductImageInline(admin.TabularInline):
@@ -21,7 +21,7 @@ class ProductSpecificationInline(admin.TabularInline):
     """
     model = ProductSpecification
     extra = 1
-    fields = ('specification_name', 'specification_value', 'sort_order')
+    fields = ('name', 'value')
 
 
 @admin.register(Product)
@@ -29,30 +29,23 @@ class ProductAdmin(admin.ModelAdmin):
     """
     Product admin configuration.
     """
-    list_display = ('name', 'sku', 'category', 'price', 'stock_quantity', 'is_active', 'is_featured', 'created_at')
-    list_filter = ('is_active', 'is_featured', 'is_digital', 'requires_shipping', 'category', 'created_at')
-    search_fields = ('name', 'sku', 'description', 'short_description')
+    list_display = ('name', 'category', 'price', 'stock_quantity', 'seller', 'is_active', 'created_at')
+    list_filter = ('is_active', 'category', 'created_at', 'seller')
+    search_fields = ('name', 'description', 'short_description')
     ordering = ('-created_at',)
 
     fieldsets = (
         ('Basic Information', {
-            'fields': ('name', 'description', 'short_description', 'sku', 'category')
+            'fields': ('name', 'description', 'short_description', 'category', 'seller')
         }),
-        ('Pricing', {
-            'fields': ('price', 'compare_price', 'cost_price')
+        ('Pricing & Inventory', {
+            'fields': ('price', 'stock_quantity')
         }),
-        ('Inventory', {
-            'fields': ('stock_quantity', 'low_stock_threshold')
-        }),
-        ('Physical Properties', {
-            'fields': ('weight', 'dimensions', 'requires_shipping')
+        ('Media', {
+            'fields': ('image_url',)
         }),
         ('Status', {
-            'fields': ('is_active', 'is_featured', 'is_digital')
-        }),
-        ('SEO', {
-            'fields': ('meta_title', 'meta_description'),
-            'classes': ('collapse',)
+            'fields': ('is_active',)
         }),
         ('Timestamps', {
             'fields': ('created_at', 'updated_at'),
@@ -80,7 +73,48 @@ class ProductSpecificationAdmin(admin.ModelAdmin):
     """
     Product Specification admin configuration.
     """
-    list_display = ('product', 'specification_name', 'specification_value', 'sort_order', 'created_at')
+    list_display = ('product', 'name', 'value', 'created_at')
     list_filter = ('created_at',)
-    search_fields = ('product__name', 'specification_name', 'specification_value')
-    ordering = ('product', 'sort_order')
+    search_fields = ('product__name', 'name', 'value')
+    ordering = ('product', 'name')
+
+
+@admin.register(Cart)
+class CartAdmin(admin.ModelAdmin):
+    """
+    Cart admin configuration.
+    """
+    list_display = ('user', 'created_at', 'updated_at')
+    list_filter = ('created_at', 'updated_at')
+    search_fields = ('user__username', 'user__email')
+
+
+@admin.register(CartItem)
+class CartItemAdmin(admin.ModelAdmin):
+    """
+    Cart Item admin configuration.
+    """
+    list_display = ('cart', 'product', 'quantity', 'created_at')
+    list_filter = ('created_at',)
+    search_fields = ('cart__user__username', 'product__name')
+
+
+@admin.register(Order)
+class OrderAdmin(admin.ModelAdmin):
+    """
+    Order admin configuration.
+    """
+    list_display = ('buyer', 'total_amount', 'status', 'created_at')
+    list_filter = ('status', 'created_at')
+    search_fields = ('buyer__username', 'buyer__email')
+    ordering = ('-created_at',)
+
+
+@admin.register(OrderItem)
+class OrderItemAdmin(admin.ModelAdmin):
+    """
+    Order Item admin configuration.
+    """
+    list_display = ('order', 'product', 'seller', 'quantity', 'price', 'created_at')
+    list_filter = ('created_at',)
+    search_fields = ('order__buyer__username', 'product__name', 'seller__username')

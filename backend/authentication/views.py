@@ -2,231 +2,138 @@
 Authentication views for the BuyBuy e-commerce backend.
 """
 
-from rest_framework import generics, status
+from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.exceptions import TokenError
 from rest_framework.views import APIView
-from django.contrib.auth import authenticate
-from .models import User, UserProfile
-from django.contrib.auth import get_user_model, logout
-from django.contrib.auth.views import LoginView
-from django.contrib.auth.views import LogoutView as DjangoLogoutView
-from django.shortcuts import redirect, render
-from rest_framework.decorators import api_view
-from rest_framework import status
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from .serializers import UserRegistrationSerializer, UserProfileSerializer, UserProfileUpdateSerializer
-from .forms import CustomUserCreationForm
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.db.models import Sum, Count
+from .models import User, UserProfile
+from .serializers import UserRegistrationSerializer, UserProfileSerializer
+from products.models import Product, Order, OrderItem
+from .forms import CustomUserCreationForm, CustomLoginForm
 
-User = get_user_model()
 
+def login_view(request):
+    if request.method == 'POST':
+        form = CustomLoginForm(data=request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect('authentication:index')  # Redirect to dashboard (index)
+            else:
+                messages.error(request, 'Invalid username or password.')
+    else:
+        form = CustomLoginForm()
+
+    return render(request, 'login.html', {'form': form})
+
+@login_required
 def index_view(request):
-    return render(request, "index.html")
+    """Dashboard view showing user's activity summary."""
+    user = request.user
 
-def users_view(request):
-    return render(request, "users.html")
+    # Get user's products for sale
+    selling_products = Product.objects.filter(seller=user, is_active=True)[:5]
 
-class CustomLoginView(LoginView):
-    template_name = "login.html"
+    # Get user's recent purchases
+    recent_purchases = OrderItem.objects.filter(
+        order__buyer=user
+    ).select_related('product', 'order')[:5]
+
+    # Get user's recent sales
+    recent_sales = OrderItem.objects.filter(
+        seller=user
+    ).select_related('product', 'order', 'order__buyer')[:5]
+
+    # Calculate stats
+    total_products = selling_products.count()
+    total_purchases = Order.objects.filter(buyer=user).count()
+    total_sales = OrderItem.objects.filter(seller=user).aggregate(
+        count=Count('id'),
+        revenue=Sum('price')
+    )
+
+    context = {
+        'user': user,
+        'selling_products': selling_products,
+        'recent_purchases': recent_purchases,
+        'recent_sales': recent_sales,
+        'total_products': total_products,
+        'total_purchases': total_purchases,
+        'total_sales_count': total_sales['count'] or 0,
+        'total_revenue': total_sales['revenue'] or 0,
+    }
+
+    return render(request, 'index.html', context)
 
 @login_required
 def products_view(request):
-    return render(request, "products.html")
+    """View all products with ability to add to cart."""
+    products = Product.objects.filter(is_active=True).select_related('category', 'seller')
+    return render(request, 'products.html', {'products': products})
 
 @login_required
 def categories_view(request):
-    return render(request, "categories.html")
-
-def logout_view(request):
-    """
-    Session-based logout (for template pages). Clears session and redirects to login.
-    Use this if your users log in via Django sessions (LoginView) and you want a simple redirect.
-    """
-    logout(request)
-    return redirect("authentication:login")
-
+    """View all categories."""
+    from categories.models import Category
+    categories = Category.objects.filter(is_active=True)
+    return render(request, "categories.html", {"categories": categories})
 
 @login_required
 def users_view(request):
+    """View all users (admin only)."""
     users = User.objects.all()
     return render(request, "users.html", {"users": users})
 
-from django.contrib.auth.forms import UserCreationForm
-
 def register_view(request):
-    if request.method == "POST":
+    """User registration view."""
+    if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
-            user = form.save(commit=False)
-            user.is_active = True  # or False if you want admin approval
-            user.save()
-            return redirect("authentication:login")
+            user = form.save()
+            messages.success(request, 'Registration successful! You can now log in.')
+            return redirect('authentication:login')
     else:
         form = CustomUserCreationForm()
-    return render(request, "register.html", {"form": form})
 
+    return render(request, 'register.html', {'form': form})
 
-class RegisterView(generics.CreateAPIView):
-    """
-    User registration endpoint.
-    """
-    queryset = User.objects.all()
-    serializer_class = UserRegistrationSerializer
+class CustomLoginView(APIView):
+    """Custom login view."""
     permission_classes = [AllowAny]
 
-    def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        user = serializer.save()
+    def post(self, request):
+        username = request.data.get('username')
+        password = request.data.get('password')
 
-        # Generate JWT tokens
-        refresh = RefreshToken.for_user(user)
-        response_data = {
-            'success': True,
-            'data': {
-                'user': {
-                    'id': user.id,
-                    'username': user.username,
-                    'email': user.email,
-                    'first_name': user.first_name,
-                    'last_name': user.last_name,
-                    'is_active': user.is_active
-                },
-                'tokens': {
+        if username and password:
+            user = authenticate(username=username, password=password)
+            if user:
+                refresh = RefreshToken.for_user(user)
+                return Response({
+                    'refresh': str(refresh),
                     'access': str(refresh.access_token),
-                    'refresh': str(refresh)
-                }
-            },
-            'message': 'User registered successfully'
-        }
+                    'user_id': user.id,
+                    'username': user.username
+                })
 
-        return Response(response_data, status=status.HTTP_201_CREATED)
+        return Response(
+            {'error': 'Invalid credentials'},
+            status=status.HTTP_401_UNAUTHORIZED
+        )
 
-class UserProfileView(generics.RetrieveAPIView):
-    """
-    Get current user's profile.
-    """
-    serializer_class = UserProfileSerializer
-    permission_classes = [IsAuthenticated]
-
-    def get_object(self):
-        return self.request.user
-
-
-class UserProfileUpdateView(generics.UpdateAPIView):
-    """
-    Update current user's profile.
-    """
-    serializer_class = UserProfileUpdateSerializer
-    permission_classes = [IsAuthenticated]
-
-    def get_object(self):
-        return self.request.user
-
-
-class UserListView(generics.ListAPIView):
-    """
-    List all users (Admin only).
-    """
-    queryset = User.objects.all()
-    serializer_class = UserProfileSerializer
-    permission_classes = [IsAuthenticated]
-
-
-class UserDetailView(generics.RetrieveAPIView):
-    """
-    Get user details (Admin only).
-    """
-    queryset = User.objects.all()
-    serializer_class = UserProfileSerializer
-    permission_classes = [IsAuthenticated]
-
-class LogoutAPIView(APIView):
-    """
-    API logout for JWT: blacklists the provided refresh token.
-    Request: POST { "refresh": "<refresh_token>" }
-    Must be authenticated (access token) if permission_classes include IsAuthenticated.
-    """
-    permission_classes = [IsAuthenticated]
-
-    def post(self, request, *args, **kwargs):
-        refresh_token = request.data.get('refresh')
-        if not refresh_token:
-            return Response({'detail': 'Refresh token is required.'},
-                            status=status.HTTP_400_BAD_REQUEST)
-        try:
-            token = RefreshToken(refresh_token)
-            # this will raise AttributeError if blacklist app not installed
-            token.blacklist()
-            return Response({'detail': 'Logged out successfully.'}, status=status.HTTP_200_OK)
-        except TokenError:
-            return Response({'detail': 'Token is invalid or expired.'}, status=status.HTTP_400_BAD_REQUEST)
-        except AttributeError:
-            return Response({
-                'detail': 'Token blacklisting not enabled. Add '
-                          '`rest_framework_simplejwt.token_blacklist` to INSTALLED_APPS.'
-            }, status=status.HTTP_501_NOT_IMPLEMENTED)
-        except Exception as e:
-            return Response({'detail': str(e)}, status=status.HTTP_400_BAD_REQUEST)
-
-class UserActivateView(generics.UpdateAPIView):
-    """
-    Activate user account (Admin only).
-    """
-    queryset = User.objects.all()
-    permission_classes = [IsAuthenticated]
-
-    def patch(self, request, *args, **kwargs):
-        user = self.get_object()
-        user.is_active = True
-        user.save()
-        return Response({'message': 'User activated successfully'})
-
-
-class UserDeactivateView(generics.UpdateAPIView):
-    """
-    Deactivate user account (Admin only).
-    """
-    queryset = User.objects.all()
-    permission_classes = [IsAuthenticated]
-
-    def patch(self, request, *args, **kwargs):
-        user = self.get_object()
-        user.is_active = False
-        user.save()
-        return Response({'message': 'User deactivated successfully'})
-
-
-class PasswordResetView(generics.GenericAPIView):
-    """
-    Password reset request endpoint.
-    """
-    permission_classes = [AllowAny]
-
-    def post(self, request, *args, **kwargs):
-        # TODO: Implement password reset logic
-        return Response({'message': 'Password reset functionality coming soon'})
-
-
-class PasswordResetConfirmView(generics.GenericAPIView):
-    """
-    Password reset confirmation endpoint.
-    """
-    permission_classes = [AllowAny]
-
-    def post(self, request, *args, **kwargs):
-        # TODO: Implement password reset confirmation logic
-        return Response({'message': 'Password reset confirmation functionality coming soon'})
-
-
-class PasswordChangeView(generics.GenericAPIView):
-    """
-    Password change endpoint for authenticated users.
-    """
-    permission_classes = [IsAuthenticated]
-
-    def post(self, request, *args, **kwargs):
-        # TODO: Implement password change logic
-        return Response({'message': 'Password change functionality coming soon'})
+def logout_view(request):
+    """User logout view."""
+    logout(request)
+    messages.success(request, 'You have been logged out successfully.')
+    return redirect('authentication:login')
