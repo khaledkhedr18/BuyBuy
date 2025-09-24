@@ -17,8 +17,9 @@ from django.shortcuts import redirect, render
 from rest_framework.decorators import api_view
 from rest_framework import status
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 # from .serializers import UserRegistrationSerializer, UserProfileSerializer, UserProfileUpdateSerializer
-# from .forms import CustomUserCreationForm
+from .forms import CustomUserCreationForm, EmailAuthenticationForm
 
 User = get_user_model()
 
@@ -30,6 +31,11 @@ def users_view(request):
 
 class CustomLoginView(LoginView):
     template_name = "login.html"
+    form_class = EmailAuthenticationForm
+    redirect_authenticated_user = True
+    
+    def get_success_url(self):
+        return "/"  # Redirect to dashboard after login
 
 @login_required
 def products_view(request):
@@ -56,12 +62,16 @@ def users_view(request):
 from django.contrib.auth.forms import UserCreationForm
 
 def register_view(request):
+    """
+    Handle user registration with custom form.
+    """
     if request.method == "POST":
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
-            user.is_active = True  # or False if you want admin approval
+            user.is_active = True
             user.save()
+            messages.success(request, 'Registration successful! You can now log in.')
             return redirect("authentication:login")
     else:
         form = CustomUserCreationForm()
