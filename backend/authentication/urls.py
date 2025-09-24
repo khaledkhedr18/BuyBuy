@@ -1,5 +1,5 @@
 from django.urls import path
-from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenBlacklistView
+# from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenBlacklistView
 from . import views
 from .views import (
     index_view, CustomLoginView, products_view, categories_view,
@@ -17,10 +17,10 @@ urlpatterns = [
     path("products/", products_view, name="products"),
     path("categories/", categories_view, name="categories"),
 
-    # API (JWT)
-    path('api/login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('api/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    path('api/logout/', TokenBlacklistView.as_view(), name='token_blacklist'),
+    # API (JWT) - DISABLED
+    # path('api/login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    # path('api/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    # path('api/logout/', TokenBlacklistView.as_view(), name='token_blacklist'),
 
     # API User Registration
     path('api/register/', views.RegisterView.as_view(), name='api_register'),
