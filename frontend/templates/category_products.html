@@ -1,0 +1,90 @@
+{% extends "base.html" %} {% block title %}{{ category.name }} Products |
+BuyBuy{% endblock %} {% block content %}
+<div class="container">
+  <div class="card">
+    <div class="card-header">
+      <div class="d-flex justify-content-between align-items-center">
+        <h2 class="card-title">{{ category.name }} Products</h2>
+        <a
+          href="{% url 'categories:categories' %}"
+          class="btn btn-secondary"
+        >
+          ← Back to Categories
+        </a>
+      </div>
+      {% if category.description %}
+      <p class="text-muted mb-0">{{ category.description }}</p>
+      {% endif %}
+    </div>
+    <div class="card-body">
+      {% if products %}
+      <div class="product-grid">
+        {% for product in products %}
+        <div class="product-card">
+          {% if product.image_url %}
+          <img
+            src="{{ product.image_url }}"
+            alt="{{ product.name }}"
+            class="product-image"
+          />
+          {% else %}
+          <div class="product-image"></div>
+          {% endif %}
+          <div class="product-info">
+            <h3 class="product-title">{{ product.name }}</h3>
+            <div class="product-price">${{ product.price }}</div>
+            <div class="product-seller">
+              Sold by: {{ product.seller.username }}
+            </div>
+            <div class="product-category">
+              Category: {{ product.category.name }}
+            </div>
+            <div class="product-actions">
+              {% if product.seller != user %}
+              <form
+                method="post"
+                action="{% url 'products:add_to_cart' product.id %}"
+                style="display: inline"
+              >
+                {% csrf_token %}
+                <input
+                  type="hidden"
+                  name="quantity"
+                  value="1"
+                />
+                <button
+                  type="submit"
+                  class="btn btn-success btn-sm"
+                >
+                  Add to Cart
+                </button>
+              </form>
+              {% else %}
+              <span class="btn btn-sm btn-outline">Your Product</span>
+              {% endif %}
+              <a
+                href="{% url 'products:product_detail' product.id %}"
+                class="btn btn-outline btn-sm"
+                >View Details</a
+              >
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      {% else %}
+      <div class="text-center py-5">
+        <h4>No products found in this category</h4>
+        <p class="text-muted">Check back later for new products!</p>
+        <a
+          href="{% url 'categories:categories' %}"
+          class="btn btn-primary"
+        >
+          Browse Other Categories
+        </a>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}

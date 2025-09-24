@@ -10,7 +10,7 @@ app_name = 'authentication'
 
 urlpatterns = [
     # Frontend (session-based)
-    path("", index_view, name="index"),
+    path("", index_view, name="index"),  # This will be accessed via /dashboard/
     path("login/", login_view, name="login"),
     path("logout/", logout_view, name="logout"),
     path("register/", register_view, name="register"),

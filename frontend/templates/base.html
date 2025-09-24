@@ -8,7 +8,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0"
     />
-    <title>{% block title %}BuyBuy Admin{% endblock %}</title>
+    <title>{% block title %}BuyBuy{% endblock %}</title>
     <link
       rel="stylesheet"
       href="{% static 'css/style.css' %}"
@@ -18,15 +18,17 @@
     <header>
       <div class="container">
         <div class="header-content">
-          <div class="logo">BuyBuy Admin</div>
+          <div class="logo">BuyBuy</div>
           <nav>
             <ul>
+              <li><a href="{% url 'landing' %}">Home</a></li>
+              {% if user.is_authenticated %}
               <li><a href="{% url 'authentication:index' %}">Dashboard</a></li>
+
               <li><a href="{% url 'products:product_list' %}">Products</a></li>
               <li>
                 <a href="{% url 'categories:categories' %}">Categories</a>
               </li>
-              {% if user.is_authenticated %}
               <li><a href="{% url 'products:cart' %}">View Cart</a></li>
               {% endif %}
               <!-- <li><a href="#">Users</a></li> -->

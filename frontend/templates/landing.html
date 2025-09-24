@@ -1,0 +1,430 @@
+{% extends "base.html" %} {% load static %} {% block title %}Welcome to BuyBuy -
+Your Marketplace{% endblock %} {% block content %}
+<!-- Hero Section -->
+<section class="hero-section">
+  <div class="hero-content">
+    <h1 class="hero-title">Welcome to BuyBuy</h1>
+    <p class="hero-subtitle">
+      Your trusted marketplace for buying and selling everything you need
+    </p>
+    <div class="hero-stats">
+      <div class="stat">
+        <span class="stat-number">{{ total_products|default:"500" }}+</span>
+        <span class="stat-label">Products Available</span>
+      </div>
+      <div class="stat">
+        <span class="stat-number">{{ total_users|default:"100" }}+</span>
+        <span class="stat-label">Trusted Sellers</span>
+      </div>
+      <div class="stat">
+        <span class="stat-number">24/7</span>
+        <span class="stat-label">Customer Support</span>
+      </div>
+    </div>
+    {% if not user.is_authenticated %}
+    <div class="hero-actions">
+      <a
+        href="{% url 'authentication:register' %}"
+        class="btn btn-primary btn-large"
+      >
+        Get Started - It's Free
+      </a>
+      <a
+        href="{% url 'authentication:login' %}"
+        class="btn btn-outline btn-large"
+      >
+        Sign In
+      </a>
+    </div>
+    {% else %}
+    <div class="hero-actions">
+      <a
+        href="{% url 'authentication:index' %}"
+        class="btn btn-primary btn-large"
+      >
+        Go to Dashboard
+      </a>
+      <a
+        href="{% url 'products:product_list' %}"
+        class="btn btn-outline btn-large"
+      >
+        Browse Products
+      </a>
+    </div>
+    {% endif %}
+  </div>
+</section>
+
+<!-- Features Section -->
+<section class="features-section">
+  <div class="section-header">
+    <h2>Why Choose BuyBuy?</h2>
+    <p>Everything you need for a seamless buying and selling experience</p>
+  </div>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon">🛒</div>
+      <h3>Easy Shopping</h3>
+      <p>
+        Browse thousands of products with our intuitive interface. Find exactly
+        what you're looking for with powerful search and filters.
+      </p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">💰</div>
+      <h3>Sell Your Items</h3>
+      <p>
+        Turn your unused items into cash. List products in minutes and reach
+        thousands of potential buyers.
+      </p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🔒</div>
+      <h3>Secure Transactions</h3>
+      <p>
+        Your payments and personal information are protected with
+        enterprise-grade security and encryption.
+      </p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📱</div>
+      <h3>Mobile Friendly</h3>
+      <p>
+        Shop and sell on the go with our fully responsive design that works
+        perfectly on any device.
+      </p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">⚡</div>
+      <h3>Fast & Reliable</h3>
+      <p>
+        Lightning-fast performance and 99.9% uptime ensure you can buy and sell
+        whenever you want.
+      </p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🤝</div>
+      <h3>Community Support</h3>
+      <p>
+        Join a community of trusted buyers and sellers with ratings, reviews,
+        and dedicated customer support.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- Featured Products Section -->
+{% if featured_products %}
+<section class="featured-products-section">
+  <div class="section-header">
+    <h2>Featured Products</h2>
+    <p>Discover amazing deals from our community of sellers</p>
+  </div>
+  <div class="product-grid">
+    {% for product in featured_products %}
+    <div class="product-card landing-product">
+      {% if product.image_url %}
+      <img
+        src="{{ product.image_url }}"
+        alt="{{ product.name }}"
+        class="product-image"
+      />
+      {% else %}
+      <div class="product-image placeholder"></div>
+      {% endif %}
+      <div class="product-info">
+        <h4 class="product-title">{{ product.name|truncatechars:40 }}</h4>
+        <div class="product-price">${{ product.price }}</div>
+        <div class="product-seller">by {{ product.seller.username }}</div>
+        {% if user.is_authenticated %}
+        <a
+          href="{% url 'products:product_detail' product.id %}"
+          class="btn btn-primary btn-sm"
+        >
+          View Details
+        </a>
+        {% else %}
+        <a
+          href="{% url 'authentication:login' %}?next={% url 'products:product_detail' product.id %}"
+          class="btn btn-primary btn-sm"
+        >
+          Login to View
+        </a>
+        {% endif %}
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  <div class="section-footer">
+    {% if user.is_authenticated %}
+    <a
+      href="{% url 'products:product_list' %}"
+      class="btn btn-outline"
+      >View All Products</a
+    >
+    {% else %}
+    <a
+      href="{% url 'authentication:register' %}"
+      class="btn btn-primary"
+      >Join to See More</a
+    >
+    {% endif %}
+  </div>
+</section>
+{% endif %}
+
+<!-- CTA Section -->
+<section class="cta-section">
+  <div class="cta-content">
+    <h2>Ready to Start Your Journey?</h2>
+    <p>
+      Join thousands of satisfied users who buy and sell on BuyBuy every day
+    </p>
+    {% if not user.is_authenticated %}
+    <div class="cta-actions">
+      <a
+        href="{% url 'authentication:register' %}"
+        class="btn btn-primary btn-large"
+      >
+        Create Free Account
+      </a>
+      <a
+        href="{% url 'authentication:login' %}"
+        class="btn btn-outline btn-large"
+      >
+        Sign In
+      </a>
+    </div>
+    {% else %}
+    <div class="cta-actions">
+      <a
+        href="{% url 'products:add_product' %}"
+        class="btn btn-primary btn-large"
+      >
+        Start Selling
+      </a>
+      <a
+        href="{% url 'categories:categories' %}"
+        class="btn btn-outline btn-large"
+      >
+        Browse Categories
+      </a>
+    </div>
+    {% endif %}
+  </div>
+</section>
+
+<style>
+  /* Landing Page Specific Styles */
+  .hero-section {
+    background: linear-gradient(
+      135deg,
+      var(--primary) 0%,
+      var(--secondary) 100%
+    );
+    color: white;
+    padding: 4rem 0;
+    text-align: center;
+    margin: -20px -20px 3rem -20px;
+  }
+
+  .hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .hero-title {
+    font-size: 3.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  }
+
+  .hero-subtitle {
+    font-size: 1.3rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+  }
+
+  .hero-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 2rem;
+    margin: 3rem 0;
+    padding: 2rem 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .stat-number {
+    font-size: 2.2rem;
+    font-weight: bold;
+    color: var(--success);
+    margin-bottom: 0.5rem;
+  }
+
+  .stat-label {
+    font-size: 0.9rem;
+    opacity: 0.8;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 2rem;
+  }
+
+  .btn-large {
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+
+  .features-section,
+  .featured-products-section,
+  .cta-section {
+    margin: 4rem 0;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .section-header h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: var(--dark);
+  }
+
+  .section-header p {
+    font-size: 1.1rem;
+    color: var(--gray);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin: 3rem 0;
+  }
+
+  .feature-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+  }
+
+  .feature-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+
+  .feature-card h3 {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    color: var(--dark);
+  }
+
+  .feature-card p {
+    color: var(--gray);
+    line-height: 1.6;
+  }
+
+  .landing-product {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease;
+  }
+
+  .landing-product:hover {
+    transform: translateY(-5px);
+  }
+
+  .product-image.placeholder {
+    background: linear-gradient(45deg, var(--light-gray), var(--light));
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .product-image.placeholder::before {
+    content: '📦';
+    font-size: 3rem;
+    opacity: 0.5;
+  }
+
+  .section-footer {
+    text-align: center;
+    margin-top: 3rem;
+  }
+
+  .cta-section {
+    background: var(--light);
+    padding: 4rem 2rem;
+    border-radius: 20px;
+    text-align: center;
+    margin: 4rem -20px;
+  }
+
+  .cta-content h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: var(--dark);
+  }
+
+  .cta-content p {
+    font-size: 1.1rem;
+    color: var(--gray);
+    margin-bottom: 2rem;
+  }
+
+  .cta-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+  }
+
+  @media (max-width: 768px) {
+    .hero-title {
+      font-size: 2.5rem;
+    }
+
+    .hero-actions,
+    .cta-actions {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .features-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .hero-stats {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+  }
+</style>
+{% endblock %}

@@ -1,25 +1,38 @@
-{% extends "base.html" %}
-{% block title %}Categories | BuyBuy{% endblock %}
-{% block content %}
+{% extends "base.html" %} {% block title %}Categories | BuyBuy{% endblock %} {%
+block content %}
 <div class="card">
   <div class="card-header">
     <h2 class="card-title">Categories</h2>
   </div>
   <div class="card-body">
-    <table>
+    <table class="table table-striped table-hover">
       <thead>
         <tr>
-          <th>ID</th>
           <th>Name</th>
           <th>Description</th>
+          <th>Actions</th>
         </tr>
       </thead>
       <tbody>
         {% for category in categories %}
         <tr>
-          <td>{{ category.id }}</td>
-          <td>{{ category.name }}</td>
+          <td>
+            <a
+              href="{% url 'products:category_products' category.id %}"
+              class="text-decoration-none fw-bold text-primary"
+            >
+              {{ category.name }}
+            </a>
+          </td>
           <td>{{ category.description }}</td>
+          <td>
+            <a
+              href="{% url 'products:category_products' category.id %}"
+              class="btn btn-primary btn-sm"
+            >
+              View Products
+            </a>
+          </td>
         </tr>
         {% empty %}
         <tr>

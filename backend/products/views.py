@@ -14,6 +14,7 @@ from django.contrib import messages
 from django.db import transaction
 from .models import Product, Cart, CartItem, Order, OrderItem
 from .serializers import ProductSerializer, ProductListSerializer
+from categories.models import Category
 
 @login_required
 def product_list_view(request):
@@ -26,6 +27,19 @@ def product_detail_view(request, pk):
     """Display product details."""
     product = get_object_or_404(Product, pk=pk, is_active=True)
     return render(request, 'product_detail.html', {'product': product})
+
+@login_required
+def category_products_view(request, category_id):
+    """Display products in a specific category."""
+    category = get_object_or_404(Category, id=category_id)
+    products = Product.objects.filter(
+        category=category,
+        is_active=True
+    ).select_related('category', 'seller')
+    return render(request, 'category_products.html', {
+        'category': category,
+        'products': products
+    })
 
 @login_required
 def my_products_view(request):

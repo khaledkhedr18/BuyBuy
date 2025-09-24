@@ -15,6 +15,24 @@ import logging
 logger = logging.getLogger('buybuy')
 
 
+def landing_page(request):
+    """
+    Public landing page for BuyBuy - no authentication required.
+    """
+    # Get some sample data for showcase
+    featured_products = Product.objects.filter(is_active=True).order_by('-created_at')[:6]
+    total_products = Product.objects.filter(is_active=True).count()
+    total_users = Product.objects.filter(is_active=True).values('seller').distinct().count()
+
+    context = {
+        'featured_products': featured_products,
+        'total_products': total_products,
+        'total_users': total_users,
+    }
+
+    return render(request, 'landing.html', context)
+
+
 @login_required
 def index(request):
     # Get user's products (what they're selling)

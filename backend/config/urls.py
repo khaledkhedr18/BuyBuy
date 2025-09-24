@@ -7,15 +7,18 @@ from django.urls import path, include, re_path
 from django.conf import settings
 from django.conf.urls.static import static
 from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
-from common.views import index
+from common.views import landing_page
 
 
 urlpatterns = [
     # Admin
     path('admin/', admin.site.urls),
 
+    # Public landing page
+    path('', landing_page, name='landing'),
+    path('dashboard/', include('authentication.urls')),
+
     # Frontend URLs (template-based)
-    path('', include('authentication.urls')),
     path('accounts/', include('authentication.urls')),
     path('products/', include('products.urls')),
     path('categories/', include('categories.urls')),
