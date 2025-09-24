@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+{% block title %}My Orders | BuyBuy{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="card">
+    <div class="card-header">
+      <h2 class="card-title">My Orders</h2>
+    </div>
+    <div class="card-body">
+      {% if orders %}
+      <div class="orders-list">
+        {% for order in orders %}
+        <div class="order-card">
+          <div class="order-header">
+            <div class="order-info">
+              <h4>Order #{{ order.id }}</h4>
+              <div class="order-meta">
+                <span>Placed on {{ order.created_at|date:"F j, Y" }}</span>
+                <span class="order-status status-{{ order.status|lower }}"
+                  >{{ order.get_status_display }}</span
+                >
+              </div>
+            </div>
+            <div class="order-total">
+              <strong>${{ order.total_amount }}</strong>
+            </div>
+          </div>
+
+          <div class="order-items">
+            {% for item in order.items.all %}
+            <div class="order-item">
+              <div class="item-product">
+                {% if item.product.image_url %}
+                <img
+                  src="{{ item.product.image_url }}"
+                  alt="{{ item.product.name }}"
+                  class="order-item-image"
+                />
+                {% endif %}
+                <div class="item-details">
+                  <h5>
+                    <a
+                      href="{% url 'products:product_detail' item.product.id %}"
+                      >{{ item.product.name }}</a
+                    >
+                  </h5>
+                  <div class="item-seller">
+                    Sold by {{ item.product.seller.username }}
+                  </div>
+                  <div class="item-quantity">Quantity: {{ item.quantity }}</div>
+                </div>
+              </div>
+              <div class="item-price">${{ item.price }} each</div>
+            </div>
+            {% endfor %}
+          </div>
+
+          <div class="order-actions">
+            <a
+              href="{% url 'products:order_detail' order.id %}"
+              class="btn btn-outline"
+              >View Details</a
+            >
+            {% if order.status == 'pending' %}
+            <button
+              type="button"
+              class="btn btn-danger"
+              onclick="cancelOrder({{ order.id }})"
+            >
+              Cancel Order
+            </button>
+            {% endif %}
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      {% else %}
+      <div class="text-center py-4">
+        <h4>No Orders Yet</h4>
+        <p>You haven't placed any orders yet.</p>
+        <a
+          href="{% url 'products:product_list' %}"
+          class="btn btn-primary"
+          >Start Shopping</a
+        >
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<script>
+  function cancelOrder(orderId) {
+    if (confirm('Are you sure you want to cancel this order?')) {
+      // Create a form and submit it
+      var form = document.createElement('form');
+      form.method = 'POST';
+      form.action = '/products/orders/' + orderId + '/cancel/';
+
+      var csrfToken = document.querySelector(
+        '[name=csrfmiddlewaretoken]',
+      ).value;
+      var csrfInput = document.createElement('input');
+      csrfInput.type = 'hidden';
+      csrfInput.name = 'csrfmiddlewaretoken';
+      csrfInput.value = csrfToken;
+      form.appendChild(csrfInput);
+
+      document.body.appendChild(form);
+      form.submit();
+    }
+  }
+</script>
+{% endblock %}

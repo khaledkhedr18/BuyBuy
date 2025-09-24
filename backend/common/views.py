@@ -7,13 +7,49 @@ from django.db import connection
 from django.core.cache import cache
 from django.utils import timezone
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+from django.db.models import Sum, Count
+from products.models import Product, Order, OrderItem
 import logging
 
 logger = logging.getLogger('buybuy')
 
 
+@login_required
 def index(request):
-    return render(request, 'index.html')
+    # Get user's products (what they're selling)
+    user_products = Product.objects.filter(seller=request.user)
+    total_products = user_products.count()
+
+    # Get user's orders (what they've bought)
+    user_orders = Order.objects.filter(buyer=request.user)
+    total_purchases = user_orders.count()
+
+    # Get sales stats (what others have bought from this user)
+    user_sales = OrderItem.objects.filter(product__seller=request.user)
+    total_sales_count = user_sales.count()
+    total_revenue = user_sales.aggregate(total=Sum('total_price'))['total'] or 0
+
+    # Recent data (limit to 5 items each)
+    selling_products = user_products.order_by('-created_at')[:5]
+    recent_purchases = OrderItem.objects.filter(
+        order__buyer=request.user
+    ).select_related('product', 'order').order_by('-created_at')[:5]
+    recent_sales = user_sales.select_related(
+        'product', 'order', 'order__buyer'
+    ).order_by('-created_at')[:5]
+
+    context = {
+        'total_products': total_products,
+        'total_purchases': total_purchases,
+        'total_sales_count': total_sales_count,
+        'total_revenue': total_revenue,
+        'selling_products': selling_products,
+        'recent_purchases': recent_purchases,
+        'recent_sales': recent_sales,
+    }
+
+    return render(request, 'index.html', context)
 
 def health_check(request):
     """

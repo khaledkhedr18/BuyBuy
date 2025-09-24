@@ -5,121 +5,136 @@ Product models for the BuyBuy e-commerce backend.
 from django.db import models
 from django.utils import timezone
 from django.core.validators import MinValueValidator, MaxValueValidator
+from django.contrib.auth import get_user_model
 
+User = get_user_model()
 
 class Product(models.Model):
     """
     Product model for e-commerce items.
     """
-    name = models.CharField(max_length=300)
-    description = models.TextField(blank=True, null=True)
-    short_description = models.CharField(max_length=500, blank=True, null=True)
-    sku = models.CharField(max_length=100, unique=True)
-    price = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(0)])
-    compare_price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True, validators=[MinValueValidator(0)])
-    cost_price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True, validators=[MinValueValidator(0)])
-    category = models.ForeignKey(
-        'categories.Category',
-        on_delete=models.RESTRICT,
-        related_name='products'
-    )
-    stock_quantity = models.IntegerField(default=0, validators=[MinValueValidator(0)])
-    low_stock_threshold = models.IntegerField(default=5, validators=[MinValueValidator(0)])
-    weight = models.DecimalField(max_digits=8, decimal_places=2, blank=True, null=True, validators=[MinValueValidator(0)])
-    dimensions = models.CharField(max_length=100, blank=True, null=True)
+    name = models.CharField(max_length=200)
+    description = models.TextField()
+    short_description = models.CharField(max_length=500, blank=True)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+    stock_quantity = models.PositiveIntegerField(default=0)
+    category = models.ForeignKey('categories.Category', on_delete=models.CASCADE, related_name='products')
+    seller = models.ForeignKey(User, on_delete=models.CASCADE, related_name='products_selling')
+    image_url = models.URLField(blank=True, null=True)
     is_active = models.BooleanField(default=True)
-    is_featured = models.BooleanField(default=False)
-    is_digital = models.BooleanField(default=False)
-    requires_shipping = models.BooleanField(default=True)
-    tax_class = models.CharField(max_length=50, blank=True, null=True)
-    meta_title = models.CharField(max_length=200, blank=True, null=True)
-    meta_description = models.TextField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        db_table = 'products'
-        verbose_name = 'Product'
-        verbose_name_plural = 'Products'
         ordering = ['-created_at']
-        indexes = [
-            models.Index(fields=['sku']),
-            models.Index(fields=['category']),
-            models.Index(fields=['price']),
-            models.Index(fields=['is_active']),
-            models.Index(fields=['is_featured']),
-            models.Index(fields=['stock_quantity']),
-            models.Index(fields=['created_at']),
-            models.Index(fields=['category', 'is_active']),
-            models.Index(fields=['price', 'is_active']),
-            models.Index(fields=['name']),
-        ]
 
     def __str__(self):
         return self.name
 
-
 class ProductImage(models.Model):
     """
-    Product image model for storing product images.
+    Product image model for multiple images per product.
     """
-    product = models.ForeignKey(
-        Product,
-        on_delete=models.CASCADE,
-        related_name='images'
-    )
-    image_url = models.URLField(max_length=500)
-    alt_text = models.CharField(max_length=200, blank=True, null=True)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='images')
+    image_url = models.URLField()
+    alt_text = models.CharField(max_length=255, blank=True)
     is_primary = models.BooleanField(default=False)
-    sort_order = models.IntegerField(default=0)
-    file_size = models.IntegerField(blank=True, null=True)
-    width = models.IntegerField(blank=True, null=True)
-    height = models.IntegerField(blank=True, null=True)
+    sort_order = models.PositiveIntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        db_table = 'product_images'
-        verbose_name = 'Product Image'
-        verbose_name_plural = 'Product Images'
         ordering = ['sort_order', 'created_at']
-        indexes = [
-            models.Index(fields=['product']),
-            models.Index(fields=['is_primary']),
-            models.Index(fields=['sort_order']),
-            models.Index(fields=['product', 'is_primary']),
-        ]
-
-    def __str__(self):
-        return f"{self.product.name} - Image {self.id}"
-
 
 class ProductSpecification(models.Model):
     """
-    Product specification model for storing product attributes.
+    Product specifications/attributes.
     """
-    product = models.ForeignKey(
-        Product,
-        on_delete=models.CASCADE,
-        related_name='specifications'
-    )
-    specification_name = models.CharField(max_length=200)
-    specification_value = models.TextField()
-    sort_order = models.IntegerField(default=0)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='specifications')
+    name = models.CharField(max_length=100)
+    value = models.CharField(max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ['product', 'name']
+
+class Cart(models.Model):
+    """
+    Shopping cart model.
+    """
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='cart')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"Cart for {self.user.username}"
+
+    @property
+    def total_price(self):
+        return sum(item.total_price for item in self.items.all())
+
+    @property
+    def total_items(self):
+        return sum(item.quantity for item in self.items.all())
+
+class CartItem(models.Model):
+    """
+    Cart item model.
+    """
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE, related_name='items')
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=1)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        db_table = 'product_specifications'
-        verbose_name = 'Product Specification'
-        verbose_name_plural = 'Product Specifications'
-        ordering = ['sort_order', 'specification_name']
-        indexes = [
-            models.Index(fields=['product']),
-            models.Index(fields=['specification_name']),
-            models.Index(fields=['sort_order']),
-            models.Index(fields=['product', 'sort_order']),
-        ]
+        unique_together = ['cart', 'product']
+
+    @property
+    def total_price(self):
+        return self.product.price * self.quantity
 
     def __str__(self):
-        return f"{self.product.name} - {self.specification_name}"
+        return f"{self.quantity} x {self.product.name}"
+
+class Order(models.Model):
+    """
+    Order model for completed purchases.
+    """
+    STATUS_CHOICES = [
+        ('pending', 'Pending'),
+        ('confirmed', 'Confirmed'),
+        ('shipped', 'Shipped'),
+        ('delivered', 'Delivered'),
+        ('cancelled', 'Cancelled'),
+    ]
+
+    buyer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='orders_bought')
+    total_amount = models.DecimalField(max_digits=10, decimal_places=2)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
+    shipping_address = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f"Order #{self.id} by {self.buyer.username}"
+
+class OrderItem(models.Model):
+    """
+    Order item model for products in an order.
+    """
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='items')
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    seller = models.ForeignKey(User, on_delete=models.CASCADE, related_name='orders_sold')
+    quantity = models.PositiveIntegerField()
+    price = models.DecimalField(max_digits=10, decimal_places=2)  # Price at time of purchase
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    @property
+    def total_price(self):
+        return self.price * self.quantity
+
+    def __str__(self):
+        return f"{self.quantity} x {self.product.name} in Order #{self.order.id}"

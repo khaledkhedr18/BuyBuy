@@ -21,12 +21,15 @@
           <div class="logo">BuyBuy Admin</div>
           <nav>
             <ul>
-              <li><a href="{% url 'index' %}">Dashboard</a></li>
-              <li><a href="{% url 'products:products' %}">Products</a></li>
+              <li><a href="{% url 'authentication:index' %}">Dashboard</a></li>
+              <li><a href="{% url 'products:product_list' %}">Products</a></li>
               <li>
                 <a href="{% url 'categories:categories' %}">Categories</a>
               </li>
-              <li><a href="{% url 'users:users' %}">Users</a></li>
+              {% if user.is_authenticated %}
+              <li><a href="{% url 'products:cart' %}">View Cart</a></li>
+              {% endif %}
+              <!-- <li><a href="#">Users</a></li> -->
             </ul>
           </nav>
           <div class="auth-buttons">
