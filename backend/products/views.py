@@ -52,6 +52,12 @@ class ProductDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = ProductSerializer
     permission_classes = [IsAuthenticated]
 
+    def get_queryset(self):
+        """Allow sellers to only access their own products for modifications."""
+        if self.request.method in ['PUT', 'PATCH', 'DELETE']:
+            return Product.objects.filter(seller=self.request.user)
+        return Product.objects.all()
+
 
 class ProductCreateView(generics.CreateAPIView):
     """
@@ -60,6 +66,10 @@ class ProductCreateView(generics.CreateAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     permission_classes = [IsAuthenticated]
+
+    def perform_create(self, serializer):
+        """Automatically set the seller to the current user."""
+        serializer.save(seller=self.request.user)
 
 
 class ProductUpdateView(generics.UpdateAPIView):
@@ -70,6 +80,10 @@ class ProductUpdateView(generics.UpdateAPIView):
     serializer_class = ProductSerializer
     permission_classes = [IsAuthenticated]
 
+    def get_queryset(self):
+        """Allow sellers to only update their own products."""
+        return Product.objects.filter(seller=self.request.user)
+
 
 class ProductDeleteView(generics.DestroyAPIView):
     """
@@ -78,6 +92,10 @@ class ProductDeleteView(generics.DestroyAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        """Allow sellers to only delete their own products."""
+        return Product.objects.filter(seller=self.request.user)
 
 
 class ProductImageView(generics.ListCreateAPIView):
@@ -178,3 +196,60 @@ class LowStockProductListView(generics.ListAPIView):
             is_active=True,
             stock_quantity__lte=models.F('low_stock_threshold')
         )
+
+
+class SellerProductListView(generics.ListAPIView):
+    """
+    List products owned by the current seller.
+    """
+    serializer_class = ProductSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return Product.objects.filter(seller=self.request.user).order_by('-created_at')
+
+
+class SellerOrderDashboardView(generics.ListAPIView):
+    """
+    List orders received by the current seller for their products.
+    """
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, *args, **kwargs):
+        # Import here to avoid circular imports
+        from orders.models import OrderItem
+        from orders.serializers import OrderItemSerializer
+        
+        # Get all order items where the seller is the current user
+        order_items = OrderItem.objects.filter(
+            seller=request.user
+        ).select_related('order', 'product').order_by('-order__created_at')
+        
+        # Group by orders for better presentation
+        orders_data = {}
+        for item in order_items:
+            order_id = item.order.id
+            if order_id not in orders_data:
+                orders_data[order_id] = {
+                    'order_id': order_id,
+                    'buyer': item.order.buyer.username,
+                    'buyer_email': item.order.buyer.email,
+                    'status': item.order.status,
+                    'total_amount': str(item.order.total_amount),
+                    'created_at': item.order.created_at,
+                    'shipping_address': item.order.shipping_address,
+                    'items': []
+                }
+            
+            orders_data[order_id]['items'].append({
+                'product_id': item.product.id,
+                'product_name': item.product.name,
+                'quantity': item.quantity,
+                'price': str(item.price),
+                'total_price': str(item.get_total_price())
+            })
+        
+        return Response({
+            'success': True,
+            'data': list(orders_data.values())
+        })

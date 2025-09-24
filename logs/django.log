@@ -3890,3 +3890,10 @@ django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'testserver'. Y
 WARNING 2025-09-24 05:03:24,600 log 5339 139785068396672 Bad Request: /orders/orders/
 INFO 2025-09-24 05:03:39,391 basehttp 5292 140548358792896 "GET /products/page/ HTTP/1.1" 200 12032
 INFO 2025-09-24 05:03:39,472 basehttp 5292 140548358792896 "GET /static/css/style.css HTTP/1.1" 200 10556
+INFO 2025-09-24 06:33:56,221 autoreload 3633 140148669554816 Watching for file changes with StatReloader
+WARNING 2025-09-24 06:34:39,060 log 3633 140148534671040 Forbidden (CSRF cookie not set.): /api/v1/auth/login/
+WARNING 2025-09-24 06:34:39,061 basehttp 3633 140148534671040 "POST /api/v1/auth/login/ HTTP/1.1" 403 2870
+WARNING 2025-09-24 06:34:39,070 log 3633 140148534671040 Forbidden (CSRF cookie not set.): /api/v1/auth/register/
+WARNING 2025-09-24 06:34:39,070 basehttp 3633 140148534671040 "POST /api/v1/auth/register/ HTTP/1.1" 403 2870
+WARNING 2025-09-24 06:34:39,077 log 3633 140148534671040 Forbidden (CSRF cookie not set.): /api/v1/auth/login/
+WARNING 2025-09-24 06:34:39,078 basehttp 3633 140148534671040 "POST /api/v1/auth/login/ HTTP/1.1" 403 2870
