@@ -1,0 +1,178 @@
+{% extends "base.html" %}
+
+{% block title %}My Orders - Seller Dashboard | BuyBuy{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title mb-0">My Orders Dashboard</h2>
+          <small class="text-muted">Orders received for your products</small>
+        </div>
+        <div class="card-body">
+          
+          <!-- Stats Row -->
+          <div class="row mb-4">
+            <div class="col-md-3">
+              <div class="card bg-primary text-white">
+                <div class="card-body">
+                  <h5 class="card-title">Total Orders</h5>
+                  <h3>{{ total_orders }}</h3>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="card bg-success text-white">
+                <div class="card-body">
+                  <h5 class="card-title">Total Revenue</h5>
+                  <h3>${{ total_revenue|floatformat:2 }}</h3>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="card bg-info text-white">
+                <div class="card-body">
+                  <h5 class="card-title">Pending Orders</h5>
+                  <h3>{{ pending_orders }}</h3>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="card bg-warning text-dark">
+                <div class="card-body">
+                  <h5 class="card-title">Items Sold</h5>
+                  <h3>{{ total_items_sold }}</h3>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Orders List -->
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Order ID</th>
+                  <th>Customer</th>
+                  <th>Products</th>
+                  <th>Total</th>
+                  <th>Status</th>
+                  <th>Date</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for order in orders %}
+                <tr>
+                  <td>
+                    <strong>#{{ order.order_id }}</strong>
+                  </td>
+                  <td>
+                    <strong>{{ order.buyer }}</strong>
+                    <br><small class="text-muted">{{ order.buyer_email }}</small>
+                  </td>
+                  <td>
+                    {% for item in order.items %}
+                    <div class="mb-1">
+                      <strong>{{ item.product_name }}</strong>
+                      <span class="badge bg-secondary">x{{ item.quantity }}</span>
+                      <br><small class="text-muted">${{ item.price }} each</small>
+                    </div>
+                    {% endfor %}
+                  </td>
+                  <td>
+                    <strong>${{ order.total_amount }}</strong>
+                  </td>
+                  <td>
+                    {% if order.status == 'pending' %}
+                      <span class="badge bg-warning">Pending</span>
+                    {% elif order.status == 'confirmed' %}
+                      <span class="badge bg-info">Confirmed</span>
+                    {% elif order.status == 'shipped' %}
+                      <span class="badge bg-primary">Shipped</span>
+                    {% elif order.status == 'delivered' %}
+                      <span class="badge bg-success">Delivered</span>
+                    {% elif order.status == 'cancelled' %}
+                      <span class="badge bg-danger">Cancelled</span>
+                    {% endif %}
+                  </td>
+                  <td>{{ order.created_at|date:"M d, Y H:i" }}</td>
+                  <td>
+                    <div class="btn-group" role="group">
+                      <button class="btn btn-sm btn-outline-primary" onclick="viewOrder('{{ order.order_id }}')">
+                        View
+                      </button>
+                      {% if order.status == 'pending' %}
+                      <button class="btn btn-sm btn-outline-success" onclick="updateOrderStatus('{{ order.order_id }}', 'confirmed')">
+                        Confirm
+                      </button>
+                      {% elif order.status == 'confirmed' %}
+                      <button class="btn btn-sm btn-outline-info" onclick="updateOrderStatus('{{ order.order_id }}', 'shipped')">
+                        Ship
+                      </button>
+                      {% endif %}
+                    </div>
+                  </td>
+                </tr>
+                {% empty %}
+                <tr>
+                  <td colspan="7" class="text-center text-muted py-4">
+                    <i class="fas fa-inbox fa-3x mb-3"></i>
+                    <br>No orders received yet. Keep adding great products!
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Order Details Modal -->
+<div class="modal fade" id="orderModal" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Order Details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body" id="orderModalBody">
+        <!-- Order details will be loaded here -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function viewOrder(orderId) {
+    // This would make an AJAX call to get order details
+    document.getElementById('orderModalBody').innerHTML = `
+        <p>Order details for #${orderId} would be loaded here via AJAX call to the API.</p>
+        <p>This would include:</p>
+        <ul>
+            <li>Full customer information</li>
+            <li>Shipping address</li>
+            <li>Payment details</li>
+            <li>Order timeline</li>
+        </ul>
+    `;
+    new bootstrap.Modal(document.getElementById('orderModal')).show();
+}
+
+function updateOrderStatus(orderId, newStatus) {
+    // This would make an AJAX call to update order status
+    if (confirm(`Are you sure you want to update order #${orderId} to ${newStatus}?`)) {
+        alert(`Order status would be updated via API call`);
+        location.reload(); // In real implementation, would update the UI dynamically
+    }
+}
+</script>
+{% endblock %}
