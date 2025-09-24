@@ -11,6 +11,10 @@ urlpatterns = [
     # Product CRUD
     # Template view for frontend Products page
     path('page/', views.products_view, name='products'),
+    
+    # Seller template views
+    path('seller/products/', views.seller_products_view, name='seller_products_page'),
+    path('seller/orders/', views.seller_orders_view, name='seller_orders_page'),
 
     # API endpoints
     path('', views.ProductListView.as_view(), name='product_list'),

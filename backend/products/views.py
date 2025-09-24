@@ -30,6 +30,83 @@ def products_view(request):
         "products": products,
         "categories": categories
     })
+
+
+@login_required
+def seller_products_view(request):
+    """Display seller's own products."""
+    products = Product.objects.filter(seller=request.user).order_by('-created_at')
+    categories = None
+    
+    # Import here to avoid circular imports
+    try:
+        from categories.models import Category
+        categories = Category.objects.filter(is_active=True)
+    except ImportError:
+        pass
+    
+    return render(request, "seller_products.html", {
+        "products": products,
+        "categories": categories
+    })
+
+
+@login_required 
+def seller_orders_view(request):
+    """Display seller's received orders dashboard."""
+    # Import here to avoid circular imports
+    from orders.models import OrderItem
+    
+    # Get all order items where the seller is the current user
+    order_items = OrderItem.objects.filter(
+        seller=request.user
+    ).select_related('order', 'product').order_by('-order__created_at')
+    
+    # Group by orders for better presentation
+    orders_data = []
+    orders_dict = {}
+    total_revenue = 0
+    total_items_sold = 0
+    pending_orders = 0
+    
+    for item in order_items:
+        order_id = item.order.id
+        if order_id not in orders_dict:
+            order_data = {
+                'order_id': order_id,
+                'buyer': item.order.buyer.username,
+                'buyer_email': item.order.buyer.email,
+                'status': item.order.status,
+                'total_amount': item.order.total_amount,
+                'created_at': item.order.created_at,
+                'shipping_address': item.order.shipping_address,
+                'items': []
+            }
+            orders_dict[order_id] = order_data
+            orders_data.append(order_data)
+            
+            if item.order.status == 'pending':
+                pending_orders += 1
+        
+        orders_dict[order_id]['items'].append({
+            'product_name': item.product.name,
+            'quantity': item.quantity,
+            'price': item.price,
+            'total_price': item.get_total_price()
+        })
+        
+        total_revenue += float(item.get_total_price())
+        total_items_sold += item.quantity
+    
+    context = {
+        'orders': orders_data,
+        'total_orders': len(orders_data),
+        'total_revenue': total_revenue,
+        'pending_orders': pending_orders,
+        'total_items_sold': total_items_sold
+    }
+    
+    return render(request, "seller_orders.html", context)
 class ProductListView(generics.ListCreateAPIView):
     """
     List all products or create a new product.
