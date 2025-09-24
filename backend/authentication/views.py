@@ -5,8 +5,8 @@ Authentication views for the BuyBuy e-commerce backend.
 from rest_framework import generics, status
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny, IsAuthenticated
-from rest_framework_simplejwt.tokens import RefreshToken
-from rest_framework_simplejwt.exceptions import TokenError
+# from rest_framework_simplejwt.tokens import RefreshToken
+# from rest_framework_simplejwt.exceptions import TokenError
 from rest_framework.views import APIView
 from django.contrib.auth import authenticate
 from .models import User, UserProfile
@@ -17,8 +17,9 @@ from django.shortcuts import redirect, render
 from rest_framework.decorators import api_view
 from rest_framework import status
 from django.contrib.auth.decorators import login_required
-from .serializers import UserRegistrationSerializer, UserProfileSerializer, UserProfileUpdateSerializer
-from .forms import CustomUserCreationForm
+from django.contrib import messages
+# from .serializers import UserRegistrationSerializer, UserProfileSerializer, UserProfileUpdateSerializer
+from .forms import CustomUserCreationForm, EmailAuthenticationForm
 
 User = get_user_model()
 
@@ -30,6 +31,11 @@ def users_view(request):
 
 class CustomLoginView(LoginView):
     template_name = "login.html"
+    form_class = EmailAuthenticationForm
+    redirect_authenticated_user = True
+    
+    def get_success_url(self):
+        return "/"  # Redirect to dashboard after login
 
 @login_required
 def products_view(request):
@@ -56,12 +62,16 @@ def users_view(request):
 from django.contrib.auth.forms import UserCreationForm
 
 def register_view(request):
+    """
+    Handle user registration with custom form.
+    """
     if request.method == "POST":
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
-            user.is_active = True  # or False if you want admin approval
+            user.is_active = True
             user.save()
+            messages.success(request, 'Registration successful! You can now log in.')
             return redirect("authentication:login")
     else:
         form = CustomUserCreationForm()
@@ -70,19 +80,22 @@ def register_view(request):
 
 class RegisterView(generics.CreateAPIView):
     """
-    User registration endpoint.
+    User registration endpoint. - SIMPLIFIED
     """
     queryset = User.objects.all()
-    serializer_class = UserRegistrationSerializer
+    # serializer_class = UserRegistrationSerializer  # DISABLED
     permission_classes = [AllowAny]
+
+    def post(self, request, *args, **kwargs):
+        return Response({'message': 'Registration API disabled'}, status=status.HTTP_501_NOT_IMPLEMENTED)
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = serializer.save()
 
-        # Generate JWT tokens
-        refresh = RefreshToken.for_user(user)
+        # Generate JWT tokens - DISABLED FOR SIMPLIFIED SETUP
+        # refresh = RefreshToken.for_user(user)
         response_data = {
             'success': True,
             'data': {
@@ -94,10 +107,10 @@ class RegisterView(generics.CreateAPIView):
                     'last_name': user.last_name,
                     'is_active': user.is_active
                 },
-                'tokens': {
-                    'access': str(refresh.access_token),
-                    'refresh': str(refresh)
-                }
+                # 'tokens': {
+                #     'access': str(refresh.access_token),
+                #     'refresh': str(refresh)
+                # }
             },
             'message': 'User registered successfully'
         }
@@ -108,7 +121,7 @@ class UserProfileView(generics.RetrieveAPIView):
     """
     Get current user's profile.
     """
-    serializer_class = UserProfileSerializer
+    # serializer_class = UserProfileSerializer  # DISABLED
     permission_classes = [IsAuthenticated]
 
     def get_object(self):
@@ -119,7 +132,7 @@ class UserProfileUpdateView(generics.UpdateAPIView):
     """
     Update current user's profile.
     """
-    serializer_class = UserProfileUpdateSerializer
+    # serializer_class = UserProfileUpdateSerializer  # DISABLED
     permission_classes = [IsAuthenticated]
 
     def get_object(self):
@@ -131,7 +144,7 @@ class UserListView(generics.ListAPIView):
     List all users (Admin only).
     """
     queryset = User.objects.all()
-    serializer_class = UserProfileSerializer
+    # serializer_class = UserProfileSerializer  # DISABLED
     permission_classes = [IsAuthenticated]
 
 
@@ -140,7 +153,7 @@ class UserDetailView(generics.RetrieveAPIView):
     Get user details (Admin only).
     """
     queryset = User.objects.all()
-    serializer_class = UserProfileSerializer
+    # serializer_class = UserProfileSerializer  # DISABLED
     permission_classes = [IsAuthenticated]
 
 class LogoutAPIView(APIView):
@@ -152,24 +165,27 @@ class LogoutAPIView(APIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request, *args, **kwargs):
-        refresh_token = request.data.get('refresh')
-        if not refresh_token:
-            return Response({'detail': 'Refresh token is required.'},
-                            status=status.HTTP_400_BAD_REQUEST)
-        try:
-            token = RefreshToken(refresh_token)
-            # this will raise AttributeError if blacklist app not installed
-            token.blacklist()
-            return Response({'detail': 'Logged out successfully.'}, status=status.HTTP_200_OK)
-        except TokenError:
-            return Response({'detail': 'Token is invalid or expired.'}, status=status.HTTP_400_BAD_REQUEST)
-        except AttributeError:
-            return Response({
-                'detail': 'Token blacklisting not enabled. Add '
-                          '`rest_framework_simplejwt.token_blacklist` to INSTALLED_APPS.'
-            }, status=status.HTTP_501_NOT_IMPLEMENTED)
-        except Exception as e:
-            return Response({'detail': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+        # DISABLED: JWT token blacklisting
+        # refresh_token = request.data.get('refresh')
+        # if not refresh_token:
+        #     return Response({'detail': 'Refresh token is required.'},
+        #                     status=status.HTTP_400_BAD_REQUEST)
+        # try:
+        #     token = RefreshToken(refresh_token)
+        #     # this will raise AttributeError if blacklist app not installed
+        #     token.blacklist()
+        #     return Response({'detail': 'Logged out successfully.'}, status=status.HTTP_200_OK)
+        # except TokenError:
+        #     return Response({'detail': 'Token is invalid or expired.'}, status=status.HTTP_400_BAD_REQUEST)
+        # except AttributeError:
+        #     return Response({
+        #         'detail': 'Token blacklisting not enabled. Add '
+        #                   '`rest_framework_simplejwt.token_blacklist` to INSTALLED_APPS.'
+        #     }, status=status.HTTP_501_NOT_IMPLEMENTED)
+        # except Exception as e:
+        #     return Response({'detail': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+        
+        return Response({'detail': 'Logout endpoint - JWT disabled'}, status=status.HTTP_200_OK)
 
 class UserActivateView(generics.UpdateAPIView):
     """

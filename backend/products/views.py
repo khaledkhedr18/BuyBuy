@@ -14,10 +14,22 @@ from django.contrib.auth.decorators import login_required
 
 from django.shortcuts import render
 
-@login_required
 def products_view(request):
-    products = Product.objects.all()
-    return render(request, "products.html", {"products": products})
+    """Display products with e-commerce functionality."""
+    products = Product.objects.filter(is_active=True).order_by('-created_at')
+    categories = None
+    
+    # Import here to avoid circular imports
+    try:
+        from categories.models import Category
+        categories = Category.objects.filter(is_active=True)
+    except ImportError:
+        pass
+    
+    return render(request, "products.html", {
+        "products": products,
+        "categories": categories
+    })
 class ProductListView(generics.ListCreateAPIView):
     """
     List all products or create a new product.

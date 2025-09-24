@@ -25,6 +25,14 @@ class Product(models.Model):
     )
     stock_quantity = models.IntegerField(default=0, validators=[MinValueValidator(0)])
     low_stock_threshold = models.IntegerField(default=5, validators=[MinValueValidator(0)])
+    # Add seller field for e-commerce functionality
+    seller = models.ForeignKey(
+        'authentication.User',
+        on_delete=models.CASCADE,
+        related_name='products_sold',
+        null=True,
+        blank=True
+    )
     weight = models.DecimalField(max_digits=8, decimal_places=2, blank=True, null=True, validators=[MinValueValidator(0)])
     dimensions = models.CharField(max_length=100, blank=True, null=True)
     is_active = models.BooleanField(default=True)

@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}Checkout | BuyBuy{% endblock %}
+
+{% block content %}
+<div class="card">
+  <div class="card-header">
+    <h2 class="card-title">Checkout</h2>
+  </div>
+  <div class="card-body">
+    <div class="checkout-container">
+      <div class="order-summary">
+        <h3>Order Summary</h3>
+        {% for item in cart.items.all %}
+          <div class="checkout-item">
+            <span class="item-name">{{ item.product.name }}</span>
+            <span class="item-quantity">x{{ item.quantity }}</span>
+            <span class="item-price">${{ item.get_total_price }}</span>
+          </div>
+        {% endfor %}
+        <div class="checkout-total">
+          <strong>Total: ${{ cart.get_total_price }}</strong>
+        </div>
+      </div>
+      
+      <div class="checkout-form">
+        <form method="post">
+          {% csrf_token %}
+          <div class="form-group">
+            <label for="shipping_address">Shipping Address:</label>
+            <textarea name="shipping_address" id="shipping_address" required class="form-control" rows="4" placeholder="Enter your full shipping address..."></textarea>
+          </div>
+          
+          <div class="form-actions">
+            <a href="{% url 'orders:cart' %}" class="btn btn-outline">Back to Cart</a>
+            <button type="submit" class="btn btn-primary">Place Order</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

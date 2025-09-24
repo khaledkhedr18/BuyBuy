@@ -3661,3 +3661,232 @@ INFO 2025-09-23 07:26:24,361 basehttp 84419 131767356962496 "GET /users/page/ HT
 INFO 2025-09-23 07:26:38,441 basehttp 84419 131767356962496 "GET /categories/page/ HTTP/1.1" 200 9600
 INFO 2025-09-23 07:26:43,029 basehttp 84419 131767356962496 "GET /products/page/ HTTP/1.1" 200 2069
 INFO 2025-09-23 07:26:44,941 basehttp 84419 131767356962496 "GET / HTTP/1.1" 200 1953
+INFO 2025-09-24 04:45:59,605 autoreload 4883 139847313227904 Watching for file changes with StatReloader
+INFO 2025-09-24 04:46:07,228 autoreload 4888 140427655331968 Watching for file changes with StatReloader
+INFO 2025-09-24 04:46:16,457 autoreload 4894 140616328130688 Watching for file changes with StatReloader
+INFO 2025-09-24 04:46:32,128 basehttp 4883 139847155054272 "HEAD / HTTP/1.1" 200 0
+INFO 2025-09-24 04:46:47,369 basehttp 4883 139847155054272 "GET / HTTP/1.1" 200 1808
+INFO 2025-09-24 04:46:47,477 basehttp 4883 139847155054272 "GET /static/css/style.css HTTP/1.1" 200 4036
+INFO 2025-09-24 04:49:05,087 autoreload 4883 139847313227904 /home/runner/work/BuyBuy/BuyBuy/backend/config/settings.py changed, reloading.
+INFO 2025-09-24 04:49:05,406 autoreload 5112 140464915144832 Watching for file changes with StatReloader
+INFO 2025-09-24 04:49:13,898 autoreload 5112 140464915144832 /home/runner/work/BuyBuy/BuyBuy/backend/products/models.py changed, reloading.
+INFO 2025-09-24 04:49:14,192 autoreload 5114 140331623821440 Watching for file changes with StatReloader
+INFO 2025-09-24 04:49:27,756 autoreload 5114 140331623821440 /home/runner/work/BuyBuy/BuyBuy/backend/config/urls.py changed, reloading.
+INFO 2025-09-24 04:49:28,067 autoreload 5117 139704043794560 Watching for file changes with StatReloader
+INFO 2025-09-24 04:50:42,316 autoreload 5117 139704043794560 /home/runner/work/BuyBuy/BuyBuy/backend/common/views.py changed, reloading.
+INFO 2025-09-24 04:50:42,616 autoreload 5144 140190505959552 Watching for file changes with StatReloader
+INFO 2025-09-24 04:51:47,734 autoreload 5144 140190505959552 /home/runner/work/BuyBuy/BuyBuy/backend/products/views.py changed, reloading.
+INFO 2025-09-24 04:51:48,025 autoreload 5163 139754398711936 Watching for file changes with StatReloader
+INFO 2025-09-24 04:53:45,163 autoreload 5182 139873827295360 Watching for file changes with StatReloader
+INFO 2025-09-24 04:53:52,449 basehttp 5182 139873747580608 "GET / HTTP/1.1" 200 2400
+INFO 2025-09-24 04:53:52,484 basehttp 5182 139873747580608 "GET /static/css/style.css HTTP/1.1" 200 10556
+INFO 2025-09-24 04:54:06,130 basehttp 5182 139873747580608 "GET /products/page/ HTTP/1.1" 200 12176
+INFO 2025-09-24 04:54:06,210 basehttp 5182 139873747580608 "GET /static/css/style.css HTTP/1.1" 200 10556
+INFO 2025-09-24 04:54:15,462 basehttp 5182 139873747580608 "GET /api/v1/auth/login/ HTTP/1.1" 200 2343
+INFO 2025-09-24 04:54:15,486 basehttp 5182 139873747580608 "GET /static/css/style.css HTTP/1.1" 200 10556
+INFO 2025-09-24 04:54:51,123 basehttp 5182 139873747580608 "GET / HTTP/1.1" 200 2400
+INFO 2025-09-24 04:54:51,227 basehttp 5182 139873747580608 "GET /static/css/style.css HTTP/1.1" 200 10556
+INFO 2025-09-24 04:55:12,622 autoreload 5182 139873827295360 /home/runner/work/BuyBuy/BuyBuy/backend/authentication/urls.py changed, reloading.
+INFO 2025-09-24 04:55:12,938 autoreload 5204 139656657404032 Watching for file changes with StatReloader
+INFO 2025-09-24 04:55:36,626 autoreload 5204 139656657404032 /home/runner/work/BuyBuy/BuyBuy/backend/config/urls.py changed, reloading.
+INFO 2025-09-24 04:55:36,921 autoreload 5207 140214718791808 Watching for file changes with StatReloader
+ERROR 2025-09-24 04:56:13,217 log 5207 140214571890368 Internal Server Error: /
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/django/urls/base.py", line 71, in reverse
+    extra, resolver = resolver.namespace_dict[ns]
+                      ~~~~~~~~~~~~~~~~~~~~~~~^^^^
+KeyError: 'auth'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/BuyBuy/BuyBuy/backend/common/views.py", line 49, in index
+    return render(request, 'index.html', context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/backends/django.py", line 61, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 175, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/defaulttags.py", line 321, in render
+    return nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/template/defaulttags.py", line 471, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/urls/base.py", line 82, in reverse
+    raise NoReverseMatch("%s is not a registered namespace" % key)
+django.urls.exceptions.NoReverseMatch: 'auth' is not a registered namespace
+ERROR 2025-09-24 04:56:13,219 basehttp 5207 140214571890368 "GET / HTTP/1.1" 500 172293
+INFO 2025-09-24 04:56:47,143 autoreload 5207 140214718791808 /home/runner/work/BuyBuy/BuyBuy/backend/config/urls.py changed, reloading.
+INFO 2025-09-24 04:56:47,481 autoreload 5225 139783278866560 Watching for file changes with StatReloader
+INFO 2025-09-24 04:56:57,961 basehttp 5225 139783131100864 "GET / HTTP/1.1" 200 2352
+INFO 2025-09-24 04:56:57,989 basehttp 5225 139783131100864 "GET /static/css/style.css HTTP/1.1" 200 10556
+INFO 2025-09-24 04:57:08,337 basehttp 5225 139783131100864 "GET /login/ HTTP/1.1" 200 2307
+INFO 2025-09-24 04:57:08,349 basehttp 5225 139783131100864 "GET /static/css/style.css HTTP/1.1" 200 10556
+INFO 2025-09-24 04:59:26,713 autoreload 5225 139783278866560 /home/runner/work/BuyBuy/BuyBuy/backend/authentication/views.py changed, reloading.
+INFO 2025-09-24 04:59:27,048 autoreload 5269 140375111512192 Watching for file changes with StatReloader
+INFO 2025-09-24 04:59:47,715 autoreload 5269 140375111512192 /home/runner/work/BuyBuy/BuyBuy/backend/authentication/views.py changed, reloading.
+INFO 2025-09-24 04:59:48,044 autoreload 5278 139693266612352 Watching for file changes with StatReloader
+INFO 2025-09-24 05:01:01,301 autoreload 5278 139693266612352 /home/runner/work/BuyBuy/BuyBuy/backend/authentication/views.py changed, reloading.
+INFO 2025-09-24 05:01:01,625 autoreload 5292 140548538597504 Watching for file changes with StatReloader
+INFO 2025-09-24 05:01:07,892 basehttp 5292 140548375574208 "GET /login/ HTTP/1.1" 200 2335
+INFO 2025-09-24 05:01:07,920 basehttp 5292 140548375574208 "GET /static/css/style.css HTTP/1.1" 200 10556
+INFO 2025-09-24 05:01:28,936 basehttp 5292 140548375574208 "GET / HTTP/1.1" 200 2352
+INFO 2025-09-24 05:01:28,958 basehttp 5292 140548375574208 "GET /static/css/style.css HTTP/1.1" 200 10556
+INFO 2025-09-24 05:01:52,058 basehttp 5292 140548375574208 "GET /admin/ HTTP/1.1" 302 0
+INFO 2025-09-24 05:01:52,078 basehttp 5292 140548375574208 "GET /admin/login/?next=/admin/ HTTP/1.1" 200 4178
+INFO 2025-09-24 05:01:52,151 basehttp 5292 140548358792896 "GET /static/admin/css/dark_mode.css HTTP/1.1" 200 2929
+INFO 2025-09-24 05:01:52,153 basehttp 5292 140548073576128 "GET /static/admin/js/theme.js HTTP/1.1" 200 1943
+INFO 2025-09-24 05:01:52,153 basehttp 5292 140548375574208 "GET /static/admin/css/base.css HTTP/1.1" 200 21310
+INFO 2025-09-24 05:01:52,155 basehttp 5292 140548342011584 "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 200 2694
+INFO 2025-09-24 05:01:52,153 basehttp 5292 140548107138752 "GET /static/admin/css/login.css HTTP/1.1" 200 958
+INFO 2025-09-24 05:01:52,155 basehttp 5292 140548358792896 "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 200 3063
+INFO 2025-09-24 05:01:52,155 basehttp 5292 140548090357440 "GET /static/admin/css/responsive.css HTTP/1.1" 200 18559
+ERROR 2025-09-24 05:03:24,296 exception 5339 139785068396672 Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/utils/deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+           ^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/http/request.py", line 150, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+WARNING 2025-09-24 05:03:24,512 log 5339 139785068396672 Bad Request: /
+ERROR 2025-09-24 05:03:24,513 exception 5339 139785068396672 Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/utils/deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+           ^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/http/request.py", line 150, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+WARNING 2025-09-24 05:03:24,526 log 5339 139785068396672 Bad Request: /products/page/
+ERROR 2025-09-24 05:03:24,527 exception 5339 139785068396672 Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/utils/deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+           ^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/http/request.py", line 150, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+WARNING 2025-09-24 05:03:24,539 log 5339 139785068396672 Bad Request: /categories/page/
+ERROR 2025-09-24 05:03:24,540 exception 5339 139785068396672 Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/utils/deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+           ^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/http/request.py", line 150, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+WARNING 2025-09-24 05:03:24,552 log 5339 139785068396672 Bad Request: /login/
+ERROR 2025-09-24 05:03:24,553 exception 5339 139785068396672 Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/utils/deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+           ^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/http/request.py", line 150, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+WARNING 2025-09-24 05:03:24,565 log 5339 139785068396672 Bad Request: /register/
+ERROR 2025-09-24 05:03:24,574 exception 5339 139785068396672 Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/utils/deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+           ^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/http/request.py", line 150, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+WARNING 2025-09-24 05:03:24,586 log 5339 139785068396672 Bad Request: /orders/cart/
+ERROR 2025-09-24 05:03:24,587 exception 5339 139785068396672 Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/utils/deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+           ^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/django/http/request.py", line 150, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+WARNING 2025-09-24 05:03:24,600 log 5339 139785068396672 Bad Request: /orders/orders/
+INFO 2025-09-24 05:03:39,391 basehttp 5292 140548358792896 "GET /products/page/ HTTP/1.1" 200 12032
+INFO 2025-09-24 05:03:39,472 basehttp 5292 140548358792896 "GET /static/css/style.css HTTP/1.1" 200 10556

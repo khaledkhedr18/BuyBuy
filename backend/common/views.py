@@ -13,7 +13,40 @@ logger = logging.getLogger('buybuy')
 
 
 def index(request):
-    return render(request, 'index.html')
+    """Enhanced dashboard with e-commerce statistics."""
+    context = {}
+    
+    # Only show detailed dashboard if user is authenticated
+    if request.user.is_authenticated:
+        from products.models import Product
+        from orders.models import Order, OrderItem
+        from categories.models import Category
+        from django.contrib.auth import get_user_model
+        
+        User = get_user_model()
+        
+        # Get basic statistics
+        context.update({
+            'total_products': Product.objects.filter(is_active=True).count(),
+            'total_categories': Category.objects.filter(is_active=True).count(),
+            'total_users': User.objects.filter(is_active=True).count(),
+            'total_orders': Order.objects.count(),
+        })
+        
+        # Get user-specific data
+        if hasattr(request.user, 'orders'):
+            user_orders = request.user.orders.all()[:5]  # Last 5 orders
+            context['recent_orders'] = user_orders
+        
+        # Get products user is selling (if any)
+        if hasattr(request.user, 'products_sold'):
+            user_products = request.user.products_sold.filter(is_active=True)[:5]
+            context['my_products'] = user_products
+        
+        # Get recent products
+        context['recent_products'] = Product.objects.filter(is_active=True).order_by('-created_at')[:5]
+    
+    return render(request, 'index.html', context)
 
 def health_check(request):
     """

@@ -8,12 +8,107 @@
     <h2 class="card-title">Dashboard</h2>
   </div>
   <div class="card-body">
-    <p>Welcome to the BuyBuy Admin Panel.</p>
-    <div class="d-flex justify-content-between mt-3">
-      <div class="card">
-        <p>Example content here</p>
+    {% if user.is_authenticated %}
+      <div class="welcome-section">
+        <h3>Welcome back, {{ user.first_name|default:user.username }}!</h3>
+        <p>Here's what's happening with your account.</p>
       </div>
-    </div>
+
+      <!-- Statistics Cards -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-number">{{ total_products|default:0 }}</div>
+          <div class="stat-label">Products Available</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">{{ total_categories|default:0 }}</div>
+          <div class="stat-label">Categories</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">{{ total_orders|default:0 }}</div>
+          <div class="stat-label">Total Orders</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">{{ total_users|default:0 }}</div>
+          <div class="stat-label">Registered Users</div>
+        </div>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="quick-actions">
+        <h3>Quick Actions</h3>
+        <div class="action-buttons">
+          <a href="{% url 'products:products' %}" class="btn btn-primary">Browse Products</a>
+          <a href="{% url 'orders:cart' %}" class="btn btn-outline">View Cart</a>
+          <a href="{% url 'orders:order_list' %}" class="btn btn-outline">My Orders</a>
+        </div>
+      </div>
+
+      <!-- Recent Orders -->
+      {% if recent_orders %}
+      <div class="dashboard-section">
+        <h3>Recent Orders</h3>
+        <div class="recent-orders">
+          {% for order in recent_orders %}
+          <div class="order-item">
+            <div class="order-info">
+              <span class="order-id">Order #{{ order.id }}</span>
+              <span class="order-date">{{ order.created_at|date:"M d, Y" }}</span>
+            </div>
+            <div class="order-status">
+              <span class="status-badge status-{{ order.status }}">{{ order.get_status_display }}</span>
+            </div>
+            <div class="order-total">
+              ${{ order.total_amount }}
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+        <a href="{% url 'orders:order_list' %}" class="view-all-link">View all orders →</a>
+      </div>
+      {% endif %}
+
+      <!-- Recent Products -->
+      {% if recent_products %}
+      <div class="dashboard-section">
+        <h3>Recent Products</h3>
+        <div class="product-grid">
+          {% for product in recent_products %}
+          <div class="product-card">
+            <h4>{{ product.name }}</h4>
+            <p class="product-price">${{ product.price }}</p>
+            <p class="product-stock">{{ product.stock_quantity }} in stock</p>
+            <a href="{% url 'orders:add_to_cart' product.id %}" class="btn btn-sm btn-primary">Add to Cart</a>
+          </div>
+          {% endfor %}
+        </div>
+        <a href="{% url 'products:products' %}" class="view-all-link">View all products →</a>
+      </div>
+      {% endif %}
+
+    {% else %}
+      <!-- Guest User View -->
+      <div class="guest-welcome">
+        <h3>Welcome to BuyBuy E-Commerce!</h3>
+        <p>Please log in to access your dashboard and start shopping.</p>
+        <div class="auth-actions">
+          <a href="{% url 'authentication:login' %}" class="btn btn-primary">Login</a>
+          <a href="{% url 'authentication:register' %}" class="btn btn-outline">Register</a>
+        </div>
+      </div>
+
+      <!-- Show some public information -->
+      <div class="public-stats">
+        <div class="stat-card">
+          <div class="stat-number">{{ total_products|default:0 }}</div>
+          <div class="stat-label">Products Available</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">{{ total_categories|default:0 }}</div>
+          <div class="stat-label">Categories</div>
+        </div>
+      </div>
+    {% endif %}
   </div>
 </div>
 {% endblock %}
