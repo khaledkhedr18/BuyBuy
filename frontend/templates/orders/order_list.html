@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}My Orders | BuyBuy{% endblock %}
+
+{% block content %}
+<div class="card">
+  <div class="card-header">
+    <h2 class="card-title">My Orders</h2>
+  </div>
+  <div class="card-body">
+    {% if orders %}
+      <table class="orders-table">
+        <thead>
+          <tr>
+            <th>Order #</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Total</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for order in orders %}
+          <tr>
+            <td>#{{ order.id }}</td>
+            <td>{{ order.created_at|date:"M d, Y" }}</td>
+            <td><span class="status-badge status-{{ order.status }}">{{ order.get_status_display }}</span></td>
+            <td>${{ order.total_amount }}</td>
+            <td>
+              <a href="{% url 'orders:order_detail' order.id %}" class="btn btn-sm btn-primary">View Details</a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <div class="no-orders">
+        <p>You haven't placed any orders yet.</p>
+        <a href="{% url 'products:products' %}" class="btn btn-primary">Start Shopping</a>
+      </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

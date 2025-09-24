@@ -43,6 +43,7 @@ LOCAL_APPS = [
     'authentication',
     'products',
     'categories',
+    'orders',
     'common',
 ]
 

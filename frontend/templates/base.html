@@ -23,9 +23,11 @@
             <ul>
               <li><a href="{% url 'index' %}">Dashboard</a></li>
               <li><a href="{% url 'products:products' %}">Products</a></li>
-              <li>
-                <a href="{% url 'categories:categories' %}">Categories</a>
-              </li>
+              <li><a href="{% url 'categories:categories' %}">Categories</a></li>
+              {% if user.is_authenticated %}
+              <li><a href="{% url 'orders:cart' %}">Cart</a></li>
+              <li><a href="{% url 'orders:order_list' %}">Orders</a></li>
+              {% endif %}
               <li><a href="{% url 'users:users' %}">Users</a></li>
             </ul>
           </nav>
