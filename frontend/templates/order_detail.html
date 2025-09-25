@@ -1,5 +1,4 @@
-{% extends "base.html" %}
-{% block title %}Order Details | BuyBuy{% endblock %}
+{% extends "base.html" %} {% block title %}Order Details | BuyBuy{% endblock %}
 {% block content %}
 <div class="container">
   <div class="card">
@@ -15,8 +14,7 @@
           <h4>Order Information</h4>
           <div class="order-info">
             <p>
-              <strong>Order Date:</strong> {{ order.created_at|date:"F j, Y g:i
-              A" }}
+              <strong>Order Date:</strong> {{ order.created_at|date:"F j, Y g:i A" }}
             </p>
             <p><strong>Status:</strong> {{ order.get_status_display }}</p>
             <p><strong>Total Amount:</strong> ${{ order.total_amount }}</p>
@@ -32,18 +30,10 @@
           <h4>Customer Information</h4>
           <div class="customer-info">
             <p>
-              <strong>Name:</strong> {{
-              order.customer.get_full_name|default:order.customer.username }}
+              <strong>Name:</strong> {{ order.buyer.get_full_name|default:order.buyer.username }}
             </p>
-            <p><strong>Email:</strong> {{ order.customer.email }}</p>
+            <p><strong>Email:</strong> {{ order.buyer.email }}</p>
           </div>
-
-          {% if order.special_instructions %}
-          <h4 class="mt-4">Special Instructions</h4>
-          <div class="special-instructions">
-            <p>{{ order.special_instructions }}</p>
-          </div>
-          {% endif %}
         </div>
       </div>
 
@@ -76,7 +66,7 @@
                   <div>
                     <h5>
                       <a
-                        href="{% url 'products:product_detail' item.product.id %}"
+                        href="{% url 'frontend_products:product_detail' item.product.id %}"
                         >{{ item.product.name }}</a
                       >
                     </h5>
@@ -89,7 +79,7 @@
               <td>{{ item.product.seller.username }}</td>
               <td>${{ item.price }}</td>
               <td>{{ item.quantity }}</td>
-              <td>${{ item.get_subtotal }}</td>
+              <td>${{ item.total_price }}</td>
             </tr>
             {% endfor %}
           </tbody>
@@ -105,7 +95,7 @@
 
     <div class="card-footer">
       <a
-        href="{% url 'products:my_orders' %}"
+        href="{% url 'frontend_products:my_orders' %}"
         class="btn btn-secondary"
         >← Back to Orders</a
       >

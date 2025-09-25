@@ -19,10 +19,10 @@ urlpatterns = [
     path('dashboard/', include('authentication.urls')),
 
     # Frontend URLs (template-based)
-    path('accounts/', include('authentication.urls')),
-    path('products/', include('products.urls')),
-    path('categories/', include('categories.urls')),
-    path('users/', include('authentication.user_urls')),
+    path('accounts/', include('authentication.urls', namespace='frontend_auth')),
+    path('products/', include('products.urls', namespace='frontend_products')),
+    path('categories/', include('categories.urls', namespace='frontend_categories')),
+    path('users/', include('authentication.user_urls', namespace='frontend_users')),
 
     # API Documentation
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
@@ -30,10 +30,10 @@ urlpatterns = [
     path('api/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
 
     # API v1
-    path('api/v1/auth/', include('authentication.urls')),
-    path('api/v1/products/', include('products.urls')),
-    path('api/v1/categories/', include('categories.urls')),
-    path('api/v1/users/', include('authentication.user_urls')),
+    path('api/v1/auth/', include('authentication.urls', namespace='api_auth')),
+    path('api/v1/products/', include('products.urls', namespace='api_products')),
+    path('api/v1/categories/', include('categories.urls', namespace='api_categories')),
+    path('api/v1/users/', include('authentication.user_urls', namespace='api_users')),
 
     # Health Check
     path('health/', include('common.urls')),

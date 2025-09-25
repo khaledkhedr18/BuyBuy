@@ -25,11 +25,19 @@
               {% if user.is_authenticated %}
               <li><a href="{% url 'authentication:index' %}">Dashboard</a></li>
 
-              <li><a href="{% url 'products:product_list' %}">Products</a></li>
               <li>
-                <a href="{% url 'categories:categories' %}">Categories</a>
+                <a href="{% url 'frontend_products:product_list' %}"
+                  >Products</a
+                >
               </li>
-              <li><a href="{% url 'products:cart' %}">View Cart</a></li>
+              <li>
+                <a href="{% url 'frontend_categories:categories' %}"
+                  >Categories</a
+                >
+              </li>
+              <li>
+                <a href="{% url 'frontend_products:cart' %}">View Cart</a>
+              </li>
               {% endif %}
               <!-- <li><a href="#">Users</a></li> -->
             </ul>

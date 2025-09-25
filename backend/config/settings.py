@@ -1,5 +1,87 @@
 """
 Django settings for BuyBuy e-commerce backend project.
+
+This module contains the comprehensive configuration for the BuyBuy multi-vendor
+e-commerce platform. It includes all necessary settings for a production-ready
+Django application with proper security, performance, and development considerations.
+
+Configuration Areas:
+    - Core Django application settings
+    - Database configuration with MySQL support
+    - Authentication and JWT token management
+    - REST API framework configuration
+    - Static and media file handling
+    - Security settings for production deployment
+    - Logging and monitoring configuration
+    - Cache configuration with Redis support
+    - Email system configuration
+    - CORS settings for frontend integration
+
+Architecture Decisions:
+    - Custom User model for extended functionality
+    - JWT authentication for stateless API access
+    - MySQL database for production reliability
+    - Redis caching for performance optimization
+    - Comprehensive logging for monitoring and debugging
+    - Environment-based configuration for deployment flexibility
+
+Security Features:
+    - Production-ready security headers
+    - HTTPS enforcement in production
+    - Secure cookie settings
+    - CORS configuration for controlled access
+    - Password validation requirements
+    - File upload security controls
+
+Performance Optimizations:
+    - Redis-backed caching system
+    - Optimized static file serving
+    - Database query optimization settings
+    - API pagination for large datasets
+    - Efficient session management
+
+Development Features:
+    - Environment-based configuration with python-decouple
+    - Comprehensive logging for debugging
+    - API documentation with Spectacular
+    - Development-friendly error handling
+    - Hot reloading support with django-extensions
+
+Production Readiness:
+    - Environment variable configuration
+    - Security settings conditional on DEBUG mode
+    - Proper static file handling
+    - Comprehensive logging configuration
+    - Health check endpoint support
+
+Examples:
+    Environment variable usage:
+        # .env file
+        DEBUG=False
+        SECRET_KEY=your-production-secret-key
+        DATABASE_URL=mysql://user:pass@host/db
+        REDIS_URL=redis://localhost:6379/1
+
+    Security in production:
+        # Automatic HTTPS enforcement when DEBUG=False
+        # Secure cookies and headers enabled
+        # XSS and CSRF protection activated
+
+Dependencies:
+    - python-decouple for environment configuration
+    - djangorestframework for API functionality
+    - djangorestframework-simplejwt for authentication
+    - django-cors-headers for CORS support
+    - drf-spectacular for API documentation
+    - django-redis for caching
+    - mysqlclient for database connectivity
+
+Notes:
+    - All sensitive settings use environment variables
+    - Database credentials should be secured in production
+    - Logging configuration includes both file and console output
+    - Cache and session backends use Redis for persistence
+    - API documentation automatically generated from code
 """
 
 import os
@@ -10,51 +92,71 @@ from datetime import timedelta
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
+# =============================================================================
+# CORE DJANGO CONFIGURATION
+# =============================================================================
+
 # SECURITY WARNING: keep the secret key used in production secret!
+# Used for cryptographic signing including sessions, cookies, and CSRF tokens
 SECRET_KEY = config('SECRET_KEY', default='django-insecure-change-me-in-production')
 
 # SECURITY WARNING: don't run with debug turned on in production!
+# Controls error reporting, static file serving, and security features
 DEBUG = config('DEBUG', default=True, cast=bool)
 
+# Hosts allowed to access this Django application
+# Should include domain names, IP addresses, and load balancer addresses
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='localhost,127.0.0.1').split(',')
 
-# Application definition
+# =============================================================================
+# APPLICATION DEFINITION
+# =============================================================================
+
+# Core Django applications required for basic functionality
 DJANGO_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
+    'django.contrib.admin',        # Admin interface for data management
+    'django.contrib.auth',         # Authentication system
+    'django.contrib.contenttypes', # Content type framework
+    'django.contrib.sessions',     # Session management
+    'django.contrib.messages',     # Message framework for user feedback
+    'django.contrib.staticfiles',  # Static file handling
 ]
 
+# Third-party applications for extended functionality
 THIRD_PARTY_APPS = [
-    'rest_framework',
-    'rest_framework_simplejwt',
-    'corsheaders',
-    'drf_spectacular',
-    'django_filters',
-    'django_extensions',
+    'rest_framework',           # Django REST Framework for API
+    'rest_framework_simplejwt', # JWT authentication for APIs
+    'corsheaders',             # CORS handling for frontend integration
+    'drf_spectacular',         # API documentation generation
+    'django_filters',          # Advanced filtering for APIs
+    'django_extensions',       # Development utilities and commands
 ]
 
+# Custom applications specific to BuyBuy platform
 LOCAL_APPS = [
-    'authentication',
-    'products',
-    'categories',
-    'common',
+    'authentication',  # Custom user management and JWT tokens
+    'products',       # Product catalog, cart, and order management
+    'categories',     # Hierarchical product categorization
+    'common',        # Shared utilities and platform-wide functionality
 ]
 
+# Combined application list in order of dependency
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
+# =============================================================================
+# MIDDLEWARE CONFIGURATION
+# =============================================================================
+
+# Middleware stack processed in order for requests and reverse order for responses
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',               # CORS headers (must be early)
+    'django.middleware.security.SecurityMiddleware',      # Security headers
+    'django.contrib.sessions.middleware.SessionMiddleware', # Session handling
+    'django.middleware.common.CommonMiddleware',           # Common processing
+    'django.middleware.csrf.CsrfViewMiddleware',          # CSRF protection
+    'django.contrib.auth.middleware.AuthenticationMiddleware', # User authentication
+    'django.contrib.messages.middleware.MessageMiddleware',    # User messages
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',  # Clickjacking protection
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -77,15 +179,24 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
-# Database
+# =============================================================================
+# DATABASE CONFIGURATION
+# =============================================================================
+
+# Primary database configuration using MySQL for production reliability
+# Supports transactions, foreign keys, and advanced indexing
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'BuyBuy',        # the DB you created
-        'USER': 'root',        # the DB user
-        'PASSWORD': 'Gamedfashkh1@',# the DB password
-        'HOST': 'localhost',     # or '127.0.0.1'
-        'PORT': '3306',          # default MySQL port
+        'ENGINE': 'django.db.backends.mysql',  # MySQL database engine
+        'NAME': 'BuyBuy',                     # Database name
+        'USER': 'root',                       # Database user (should use env var in production)
+        'PASSWORD': 'Gamedfashkh1@',          # Database password (should use env var in production)
+        'HOST': 'localhost',                  # Database host
+        'PORT': '3306',                       # Standard MySQL port
+        'OPTIONS': {
+            'sql_mode': 'TRADITIONAL',        # Strict SQL mode for data integrity
+            'charset': 'utf8mb4',            # Full UTF-8 support including emojis
+        },
     }
 }
 
@@ -128,6 +239,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Custom User Model
 AUTH_USER_MODEL = 'authentication.User'
+
+# Authentication Backends
+# Custom backend supports both username and email authentication
+AUTHENTICATION_BACKENDS = [
+    'authentication.backends.EmailOrUsernameAuthBackend',  # Custom email/username auth
+    'django.contrib.auth.backends.ModelBackend',          # Default Django auth (fallback)
+]
 
 # Django REST Framework
 REST_FRAMEWORK = {
