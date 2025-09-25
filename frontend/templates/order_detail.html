@@ -14,7 +14,8 @@
           <h4>Order Information</h4>
           <div class="order-info">
             <p>
-              <strong>Order Date:</strong> {{ order.created_at|date:"F j, Y g:i A" }}
+              <strong>Order Date:</strong> {{ order.created_at|date:"F j, Y g:i
+              A" }}
             </p>
             <p><strong>Status:</strong> {{ order.get_status_display }}</p>
             <p><strong>Total Amount:</strong> ${{ order.total_amount }}</p>
@@ -30,7 +31,8 @@
           <h4>Customer Information</h4>
           <div class="customer-info">
             <p>
-              <strong>Name:</strong> {{ order.buyer.get_full_name|default:order.buyer.username }}
+              <strong>Name:</strong> {{
+              order.buyer.get_full_name|default:order.buyer.username }}
             </p>
             <p><strong>Email:</strong> {{ order.buyer.email }}</p>
           </div>
