@@ -113,7 +113,8 @@ DEBUG = config('DEBUG', default=False, cast=bool)
 
 # Hosts allowed to access this Django application
 # Should include domain names, IP addresses, and load balancer addresses
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='localhost,127.0.0.1').split(',')
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'buybuy.up.railway.app']
+CSRF_TRUSTED_ORIGINS = ['https://buybuy.up.railway.app']
 
 # =============================================================================
 # APPLICATION DEFINITION
