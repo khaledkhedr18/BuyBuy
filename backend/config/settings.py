@@ -201,25 +201,57 @@ DATABASES = {
     }
 }
 
-# Database Configuration for Deployment
-if 'DATABASE_URL' in os.environ:
+# Railway-specific configuration
+if os.environ.get('RAILWAY_ENVIRONMENT'):
+    DEBUG = False
+
+    # Railway provides DATABASE_URL automatically when you add PostgreSQL
+    if 'DATABASE_URL' in os.environ:
+        DATABASES = {
+            'default': dj_database_url.parse(
+                os.environ.get('DATABASE_URL'),
+                conn_max_age=600,
+                conn_health_checks=True,
+            )
+        }
+
+    # Add Railway domain to allowed hosts
+    RAILWAY_DOMAIN = os.environ.get('RAILWAY_PUBLIC_DOMAIN')
+    if RAILWAY_DOMAIN:
+        ALLOWED_HOSTS.extend([
+            RAILWAY_DOMAIN,
+            f'*.{RAILWAY_DOMAIN}',
+            '*.railway.app',
+            'localhost',
+            '127.0.0.1'
+        ])
+
+    # Static files configuration for Railway
+    STATIC_ROOT = os.path.join(BASE_DIR.parent, 'staticfiles')  # Note: BASE_DIR.parent because we're in backend/config/
+
+    # Add Whitenoise for static file serving
+    MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+    # Redis configuration for Railway (if you add Redis service)
+    if 'REDIS_URL' in os.environ:
+        CACHES = {
+            'default': {
+                'BACKEND': 'django_redis.cache.RedisCache',
+                'LOCATION': os.environ.get('REDIS_URL'),
+                'OPTIONS': {
+                    'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+                }
+            }
+        }
+
+elif 'DATABASE_URL' in os.environ:
+    # Generic DATABASE_URL configuration
     DATABASES = {
         'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
     }
-elif 'RAILWAY_ENVIRONMENT' in os.environ:
-    # Railway PostgreSQL configuration
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': os.environ.get('PGDATABASE'),
-            'USER': os.environ.get('PGUSER'),
-            'PASSWORD': os.environ.get('PGPASSWORD'),
-            'HOST': os.environ.get('PGHOST'),
-            'PORT': os.environ.get('PGPORT', '5432'),
-        }
-    }
 else:
-    # Your existing MySQL configuration for local development
+    # Your existing local MySQL configuration
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
@@ -436,8 +468,3 @@ os.makedirs(BASE_DIR / 'logs', exist_ok=True)
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/login/'
-
-# Add whitenoise for static files
-if not DEBUG:
-    MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
-    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
