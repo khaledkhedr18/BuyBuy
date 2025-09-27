@@ -3,7 +3,7 @@ PYTHONPATH = "/app/backend"
 DJANGO_SETTINGS_MODULE = "config.settings"
 
 [phases.setup]
-nixPkgs = ["python311", "postgresql", "gcc", "pkg-config"]
+nixPkgs = ["python311", "postgresql", "gcc", "pkg-config", "libffi", "openssl"]
 
 [phases.install]
 cmds = [

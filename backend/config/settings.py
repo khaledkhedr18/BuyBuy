@@ -186,72 +186,18 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 # Primary database configuration using MySQL for production reliability
 # Supports transactions, foreign keys, and advanced indexing
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',  # MySQL database engine
-        'NAME': 'BuyBuy',                     # Database name
-        'USER': 'root',                       # Database user (should use env var in production)
-        'PASSWORD': 'Gamedfashkh1@',          # Database password (should use env var in production)
-        'HOST': 'localhost',                  # Database host
-        'PORT': '3306',                       # Standard MySQL port
-        'OPTIONS': {
-            'sql_mode': 'TRADITIONAL',        # Strict SQL mode for data integrity
-            'charset': 'utf8mb4',            # Full UTF-8 support including emojis
-        },
-    }
-}
-
-# Railway-specific configuration
-if os.environ.get('RAILWAY_ENVIRONMENT'):
-    DEBUG = False
-
-    # Railway provides DATABASE_URL automatically when you add PostgreSQL
-    if 'DATABASE_URL' in os.environ:
-        DATABASES = {
-            'default': dj_database_url.parse(
-                os.environ.get('DATABASE_URL'),
-                conn_max_age=600,
-                conn_health_checks=True,
-            )
-        }
-
-    # Add Railway domain to allowed hosts
-    RAILWAY_DOMAIN = os.environ.get('RAILWAY_PUBLIC_DOMAIN')
-    if RAILWAY_DOMAIN:
-        ALLOWED_HOSTS.extend([
-            RAILWAY_DOMAIN,
-            f'*.{RAILWAY_DOMAIN}',
-            '*.railway.app',
-            'localhost',
-            '127.0.0.1'
-        ])
-
-    # Static files configuration for Railway
-    STATIC_ROOT = os.path.join(BASE_DIR.parent, 'staticfiles')  # Note: BASE_DIR.parent because we're in backend/config/
-
-    # Add Whitenoise for static file serving
-    MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
-    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
-    # Redis configuration for Railway (if you add Redis service)
-    if 'REDIS_URL' in os.environ:
-        CACHES = {
-            'default': {
-                'BACKEND': 'django_redis.cache.RedisCache',
-                'LOCATION': os.environ.get('REDIS_URL'),
-                'OPTIONS': {
-                    'CLIENT_CLASS': 'django_redis.client.DefaultClient',
-                }
-            }
-        }
-
-elif 'DATABASE_URL' in os.environ:
-    # Generic DATABASE_URL configuration
+# Database Configuration
+if os.environ.get('RAILWAY_ENVIRONMENT') or os.environ.get('DATABASE_URL'):
+    # Production/Railway database (PostgreSQL)
     DATABASES = {
-        'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
+        'default': dj_database_url.parse(
+            os.environ.get('DATABASE_URL'),
+            conn_max_age=600,
+            conn_health_checks=True,
+        )
     }
 else:
-    # Your existing local MySQL configuration
+    # Local development database (MySQL)
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
@@ -267,6 +213,31 @@ else:
         }
     }
 
+# Production settings for Railway
+if os.environ.get('RAILWAY_ENVIRONMENT'):
+    DEBUG = False
+
+    # Add Railway domains to allowed hosts
+    RAILWAY_DOMAIN = os.environ.get('RAILWAY_PUBLIC_DOMAIN')
+    if RAILWAY_DOMAIN:
+        ALLOWED_HOSTS.extend([
+            RAILWAY_DOMAIN,
+            f'*.{RAILWAY_DOMAIN}',
+            '*.railway.app',
+        ])
+
+    # Static files configuration for Railway
+    STATIC_ROOT = os.path.join(BASE_DIR.parent, 'staticfiles')
+
+    # Add Whitenoise for static file serving
+    if 'whitenoise.middleware.WhiteNoiseMiddleware' not in MIDDLEWARE:
+        MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
+
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+    # Security settings for production
+    SECURE_SSL_REDIRECT = False  # Railway handles SSL
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [

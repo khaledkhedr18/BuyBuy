@@ -8,9 +8,8 @@ drf-spectacular==0.26.5
 python-decouple==3.8
 Pillow==10.0.1
 
-# Database drivers
+# Database drivers (PostgreSQL only for Railway)
 psycopg2-binary==2.9.7
-mysqlclient==2.2.0
 dj-database-url==2.1.0
 
 # Production server
@@ -23,7 +22,6 @@ redis==5.0.1
 
 # Development and utility packages
 django-extensions==3.2.3
-django-debug-toolbar==4.2.0
 
 # API documentation
 pyyaml==6.0.1
@@ -32,3 +30,7 @@ uritemplate==4.1.1
 # Additional utilities
 requests==2.31.0
 python-dotenv==1.0.0
+
+# Security and utilities
+cryptography>=3.4.8
+setuptools>=65.0.0
