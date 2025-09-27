@@ -88,23 +88,14 @@ import os
 from pathlib import Path
 from decouple import config
 from datetime import timedelta
+from environ import Env
 import dj_database_url
 
-# Debug Railway environment (only in Railway, not locally)
-if os.environ.get('RAILWAY_ENVIRONMENT'):
-    print("=== RAILWAY DATABASE DEBUG ===")
-    print(f"RAILWAY_ENVIRONMENT: {os.environ.get('RAILWAY_ENVIRONMENT')}")
-    print(f"PGDATABASE: {os.environ.get('PGDATABASE')}")
-    print(f"PGUSER: {os.environ.get('PGUSER')}")
-    print(f"PGHOST: {os.environ.get('PGHOST')}")
-    print(f"PGPORT: {os.environ.get('PGPORT')}")
-    print(f"DATABASE_URL exists: {bool(os.environ.get('DATABASE_URL'))}")
-    if os.environ.get('DATABASE_URL'):
-        db_url = os.environ.get('DATABASE_URL')
-        print(f"DATABASE_URL type: {type(db_url)}")
-        print(f"DATABASE_URL length: {len(str(db_url))}")
-        print(f"DATABASE_URL starts with: {str(db_url)[:20]}...")
-    print("=== END RAILWAY DEBUG ===")
+env = Env()
+env.read_env('.env')
+
+ENVIRONMENT = env.str('ENVIRONMENT', default='development')
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
@@ -118,11 +109,11 @@ SECRET_KEY = config('SECRET_KEY', default='django-insecure-change-me-in-producti
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # Controls error reporting, static file serving, and security features
-DEBUG = config('DEBUG', default=True, cast=bool)
+DEBUG = config('DEBUG', default=False, cast=bool)
 
 # Hosts allowed to access this Django application
 # Should include domain names, IP addresses, and load balancer addresses
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='localhost,127.0.0.1').split(',') + ['.vercel.app']
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='localhost,127.0.0.1').split(',')
 
 # =============================================================================
 # APPLICATION DEFINITION
@@ -201,139 +192,25 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 # Primary database configuration using MySQL for production reliability
 # Supports transactions, foreign keys, and advanced indexing
-# Database Configuration
-if os.environ.get('RAILWAY_ENVIRONMENT'):
-    # Railway cross-project database connection
-    # This connects lavish-communication (Django) to discerning-curiosity (PostgreSQL)
-
-    # Try using the PostgreSQL project's DATABASE_PUBLIC_URL first
-    database_public_url = "postgresql://postgres:CalFyXLkugZMUGFHoYEYkRfbGzsmDVxk@nozomi.proxy.rlwy.net:24106/railway"
-
-    try:
-        DATABASES = {
-            'default': dj_database_url.parse(
-                database_public_url,
-                conn_max_age=300,  # Reduced connection age to 5 minutes
-                conn_health_checks=True,
-            )
-        }
-
-        # Add connection options for better stability
-        DATABASES['default']['OPTIONS'] = {
-            'sslmode': 'require',
-            'connect_timeout': 30,
-            'options': '-c default_transaction_isolation=read_committed'
-        }
-
-        print(f"=== RAILWAY CROSS-PROJECT DATABASE CONNECTION ===")
-        print(f"Database Host: nozomi.proxy.rlwy.net:24106")
-        print(f"Database Name: railway")
-        print(f"Database User: postgres")
-        print(f"Connection URL: postgresql://postgres:***@nozomi.proxy.rlwy.net:24106/railway")
-
-    except Exception as e:
-        print(f"Cross-project database URL parsing error: {e}")
-        print("=== USING BASIC CONFIGURATION FALLBACK ===")
-
-        # Basic fallback configuration
-        DATABASES = {
-            'default': {
-                'ENGINE': 'django.db.backends.postgresql',
-                'NAME': 'railway',
-                'USER': 'postgres',
-                'PASSWORD': 'CalFyXLkugZMUGFHoYEYkRfbGzsmDVxk',
-                'HOST': 'nozomi.proxy.rlwy.net',
-                'PORT': '24106',
-                'OPTIONS': {
-                    'sslmode': 'require',
-                    'connect_timeout': 30,
-                },
-            }
-        }    # If direct connection fails, try using DATABASE_PUBLIC_URL for external access
-    if not DATABASES['default']['HOST']:
-        print("=== TRYING DATABASE_PUBLIC_URL FALLBACK ===")
-        database_public_url = os.environ.get('DATABASE_PUBLIC_URL')
-        if database_public_url:
-            try:
-                import dj_database_url
-                DATABASES = {
-                    'default': dj_database_url.parse(
-                        database_public_url,
-                        conn_max_age=600,
-                        conn_health_checks=True,
-                    )
-                }
-                print(f"Using DATABASE_PUBLIC_URL connection")
-            except Exception as e:
-                print(f"DATABASE_PUBLIC_URL parse error: {e}")
-
-elif os.environ.get('DATABASE_URL'):
-    # Generic DATABASE_URL configuration (fallback)
-    try:
-        database_url = os.environ.get('DATABASE_URL')
-        if isinstance(database_url, bytes):
-            database_url = database_url.decode('utf-8')
-        DATABASES = {
-            'default': dj_database_url.parse(
-                database_url,
-                conn_max_age=600,
-                conn_health_checks=True,
-            )
-        }
-    except Exception as e:
-        # If DATABASE_URL parsing fails, fallback to environment variables
-        DATABASES = {
-            'default': {
-                'ENGINE': 'django.db.backends.postgresql',
-                'NAME': os.environ.get('PGDATABASE', 'railway'),
-                'USER': os.environ.get('PGUSER', 'postgres'),
-                'PASSWORD': os.environ.get('PGPASSWORD', ''),
-                'HOST': os.environ.get('PGHOST', 'localhost'),
-                'PORT': os.environ.get('PGPORT', '5432'),
-            }
-        }
-else:
-    # Local development database (MySQL)
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'BuyBuy',
-            'USER': 'root',
-            'PASSWORD': 'Gamedfashkh1@',
-            'HOST': 'localhost',
-            'PORT': '3306',
-            'OPTIONS': {
-                'sql_mode': 'TRADITIONAL',
-                'charset': 'utf8mb4',
-            },
-        }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',  # MySQL database engine
+        'NAME': 'BuyBuy',                     # Database name
+        'USER': 'root',                       # Database user (should use env var in production)
+        'PASSWORD': 'Gamedfashkh1@',          # Database password (should use env var in production)
+        'HOST': 'localhost',                  # Database host
+        'PORT': '3306',                       # Standard MySQL port
+        'OPTIONS': {
+            'sql_mode': 'TRADITIONAL',        # Strict SQL mode for data integrity
+            'charset': 'utf8mb4',            # Full UTF-8 support including emojis
+        },
     }
+}
 
-# Production settings for Railway
-if os.environ.get('RAILWAY_ENVIRONMENT'):
-    DEBUG = False
+POSTGRES_LOCALLY = True
+if ENVIRONMENT == 'production' or POSTGRES_LOCALLY == True:
+    DATABASES['default'] = dj_database_url.parse(env('DATABASE_URL'))
 
-    # Add Railway domains to allowed hosts
-    RAILWAY_DOMAIN = os.environ.get('RAILWAY_PUBLIC_DOMAIN')
-    if RAILWAY_DOMAIN:
-        ALLOWED_HOSTS.extend([
-            RAILWAY_DOMAIN,
-            f'*.{RAILWAY_DOMAIN}',
-            '*.railway.app',
-        ])
-
-    # Static files configuration for Railway
-    STATIC_ROOT = os.path.join(BASE_DIR.parent, 'staticfiles')
-
-    # Add Whitenoise for static file serving
-    if 'whitenoise.middleware.WhiteNoiseMiddleware' not in MIDDLEWARE:
-        MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
-
-    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
-    # Security settings for production
-    SECURE_SSL_REDIRECT = False  # Railway handles SSL
-    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
