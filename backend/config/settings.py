@@ -90,6 +90,21 @@ from decouple import config
 from datetime import timedelta
 import dj_database_url
 
+# Debug Railway environment (only in Railway, not locally)
+if os.environ.get('RAILWAY_ENVIRONMENT'):
+    print("=== RAILWAY DATABASE DEBUG ===")
+    print(f"RAILWAY_ENVIRONMENT: {os.environ.get('RAILWAY_ENVIRONMENT')}")
+    print(f"PGDATABASE: {os.environ.get('PGDATABASE')}")
+    print(f"PGUSER: {os.environ.get('PGUSER')}")
+    print(f"PGHOST: {os.environ.get('PGHOST')}")
+    print(f"PGPORT: {os.environ.get('PGPORT')}")
+    print(f"DATABASE_URL exists: {bool(os.environ.get('DATABASE_URL'))}")
+    if os.environ.get('DATABASE_URL'):
+        db_url = os.environ.get('DATABASE_URL')
+        print(f"DATABASE_URL type: {type(db_url)}")
+        print(f"DATABASE_URL length: {len(str(db_url))}")
+        print(f"DATABASE_URL starts with: {str(db_url)[:20]}...")
+    print("=== END RAILWAY DEBUG ===")
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
@@ -187,15 +202,46 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Primary database configuration using MySQL for production reliability
 # Supports transactions, foreign keys, and advanced indexing
 # Database Configuration
-if os.environ.get('RAILWAY_ENVIRONMENT') or os.environ.get('DATABASE_URL'):
-    # Production/Railway database (PostgreSQL)
+if os.environ.get('RAILWAY_ENVIRONMENT'):
+    # Railway environment - use Railway's PostgreSQL variables directly
     DATABASES = {
-        'default': dj_database_url.parse(
-            os.environ.get('DATABASE_URL'),
-            conn_max_age=600,
-            conn_health_checks=True,
-        )
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': os.environ.get('PGDATABASE'),
+            'USER': os.environ.get('PGUSER'),
+            'PASSWORD': os.environ.get('PGPASSWORD'),
+            'HOST': os.environ.get('PGHOST'),
+            'PORT': os.environ.get('PGPORT', '5432'),
+            'OPTIONS': {
+                'sslmode': 'require',
+            },
+        }
     }
+elif os.environ.get('DATABASE_URL'):
+    # Generic DATABASE_URL configuration (fallback)
+    try:
+        database_url = os.environ.get('DATABASE_URL')
+        if isinstance(database_url, bytes):
+            database_url = database_url.decode('utf-8')
+        DATABASES = {
+            'default': dj_database_url.parse(
+                database_url,
+                conn_max_age=600,
+                conn_health_checks=True,
+            )
+        }
+    except Exception as e:
+        # If DATABASE_URL parsing fails, fallback to environment variables
+        DATABASES = {
+            'default': {
+                'ENGINE': 'django.db.backends.postgresql',
+                'NAME': os.environ.get('PGDATABASE', 'railway'),
+                'USER': os.environ.get('PGUSER', 'postgres'),
+                'PASSWORD': os.environ.get('PGPASSWORD', ''),
+                'HOST': os.environ.get('PGHOST', 'localhost'),
+                'PORT': os.environ.get('PGPORT', '5432'),
+            }
+        }
 else:
     # Local development database (MySQL)
     DATABASES = {
