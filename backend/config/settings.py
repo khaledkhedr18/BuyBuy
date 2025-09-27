@@ -88,6 +88,13 @@ import os
 from pathlib import Path
 from decouple import config
 from datetime import timedelta
+from environ import Env
+import dj_database_url
+
+env = Env()
+env.read_env('.env')
+
+ENVIRONMENT = env.str('ENVIRONMENT', default='development')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
@@ -102,7 +109,7 @@ SECRET_KEY = config('SECRET_KEY', default='django-insecure-change-me-in-producti
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # Controls error reporting, static file serving, and security features
-DEBUG = config('DEBUG', default=True, cast=bool)
+DEBUG = config('DEBUG', default=False, cast=bool)
 
 # Hosts allowed to access this Django application
 # Should include domain names, IP addresses, and load balancer addresses
@@ -199,6 +206,10 @@ DATABASES = {
         },
     }
 }
+
+POSTGRES_LOCALLY = True
+if ENVIRONMENT == 'production' or POSTGRES_LOCALLY == True:
+    DATABASES['default'] = dj_database_url.parse(env('DATABASE_URL'))
 
 
 # Password validation
