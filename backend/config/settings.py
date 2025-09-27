@@ -206,54 +206,47 @@ if os.environ.get('RAILWAY_ENVIRONMENT'):
     # Railway cross-project database connection
     # This connects lavish-communication (Django) to discerning-curiosity (PostgreSQL)
 
-    # Database credentials from discerning-curiosity project
-    db_password = "CalFyXLkugZMUGFHoYEYkRfbGzsmDVxk"
-    db_name = "railway"
-    db_user = "postgres"
-
-    # Try multiple possible proxy endpoints (Railway sometimes changes these)
-    proxy_hosts = [
-        ("nozomi.proxy.rlwy.net", "24106"),  # Previous working endpoint
-        ("postgres.railway.internal", "5432"),  # Internal Railway connection (if accessible)
-        ("roundhouse.proxy.rlwy.net", "24106"),  # Alternative proxy
-    ]
-
-    # Use the first available proxy configuration
-    proxy_host, proxy_port = proxy_hosts[0]  # Start with the first one
-
-    cross_project_db_url = f"postgresql://{db_user}:{db_password}@{proxy_host}:{proxy_port}/{db_name}"
+    # Try using the PostgreSQL project's DATABASE_PUBLIC_URL first
+    database_public_url = "postgresql://postgres:CalFyXLkugZMUGFHoYEYkRfbGzsmDVxk@nozomi.proxy.rlwy.net:24106/railway"
 
     try:
         DATABASES = {
             'default': dj_database_url.parse(
-                cross_project_db_url,
-                conn_max_age=600,
+                database_public_url,
+                conn_max_age=300,  # Reduced connection age to 5 minutes
                 conn_health_checks=True,
             )
         }
 
+        # Add connection options for better stability
+        DATABASES['default']['OPTIONS'] = {
+            'sslmode': 'require',
+            'connect_timeout': 30,
+            'options': '-c default_transaction_isolation=read_committed'
+        }
+
         print(f"=== RAILWAY CROSS-PROJECT DATABASE CONNECTION ===")
-        print(f"Database Host: {proxy_host}:{proxy_port}")
-        print(f"Database Name: {db_name}")
-        print(f"Database User: {db_user}")
-        print(f"Connection URL: postgresql://{db_user}:***@{proxy_host}:{proxy_port}/{db_name}")
+        print(f"Database Host: nozomi.proxy.rlwy.net:24106")
+        print(f"Database Name: railway")
+        print(f"Database User: postgres")
+        print(f"Connection URL: postgresql://postgres:***@nozomi.proxy.rlwy.net:24106/railway")
 
     except Exception as e:
         print(f"Cross-project database URL parsing error: {e}")
-        print("=== USING FALLBACK DATABASE CONFIGURATION ===")
+        print("=== USING BASIC CONFIGURATION FALLBACK ===")
 
-        # Fallback to direct configuration
+        # Basic fallback configuration
         DATABASES = {
             'default': {
                 'ENGINE': 'django.db.backends.postgresql',
-                'NAME': db_name,
-                'USER': db_user,
-                'PASSWORD': db_password,
-                'HOST': proxy_host,
-                'PORT': proxy_port,
+                'NAME': 'railway',
+                'USER': 'postgres',
+                'PASSWORD': 'CalFyXLkugZMUGFHoYEYkRfbGzsmDVxk',
+                'HOST': 'nozomi.proxy.rlwy.net',
+                'PORT': '24106',
                 'OPTIONS': {
                     'sslmode': 'require',
-                    'connect_timeout': 10,
+                    'connect_timeout': 30,
                 },
             }
         }    # If direct connection fails, try using DATABASE_PUBLIC_URL for external access

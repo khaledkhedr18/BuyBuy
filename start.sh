@@ -19,16 +19,23 @@ cd backend
 echo "Collecting static files..."
 python manage.py collectstatic --noinput --clear
 
-echo "Running database migrations..."
-python manage.py migrate
+echo "Testing database connection..."
+python manage.py test_db_connection
+
+echo "Running database migrations with timeout handling..."
+timeout 300 python manage.py migrate || {
+    echo "Migration failed or timed out. Attempting to start server anyway..."
+    echo "Database may need manual setup via Railway dashboard."
+}
 
 echo "Starting Gunicorn server..."
 exec gunicorn config.wsgi:application \
     --bind 0.0.0.0:$PORT \
-    --workers 3 \
-    --timeout 120 \
+    --workers 1 \
+    --timeout 300 \
     --keep-alive 2 \
     --max-requests 1000 \
     --max-requests-jitter 100 \
     --log-level info \
-    --log-file -
+    --log-file - \
+    --preload
