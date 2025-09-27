@@ -88,6 +88,7 @@ import os
 from pathlib import Path
 from decouple import config
 from datetime import timedelta
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
@@ -106,7 +107,7 @@ DEBUG = config('DEBUG', default=True, cast=bool)
 
 # Hosts allowed to access this Django application
 # Should include domain names, IP addresses, and load balancer addresses
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='localhost,127.0.0.1').split(',')
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='localhost,127.0.0.1').split(',') + ['.vercel.app']
 
 # =============================================================================
 # APPLICATION DEFINITION
@@ -199,6 +200,28 @@ DATABASES = {
         },
     }
 }
+
+# Database Configuration for Deployment
+if 'DATABASE_URL' in os.environ:
+    DATABASES = {
+        'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
+    }
+else:
+    # Your existing MySQL configuration for local development
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'BuyBuy',
+            'USER': 'root',
+            'PASSWORD': 'Gamedfashkh1@',
+            'HOST': 'localhost',
+            'PORT': '3306',
+            'OPTIONS': {
+                'sql_mode': 'TRADITIONAL',
+                'charset': 'utf8mb4',
+            },
+        }
+    }
 
 
 # Password validation
@@ -401,3 +424,8 @@ os.makedirs(BASE_DIR / 'logs', exist_ok=True)
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/login/'
+
+# Add whitenoise for static files
+if not DEBUG:
+    MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
