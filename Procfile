@@ -1,1 +1,1 @@
-web: ./start.sh
+web: gunicorn a_core.wsgi
