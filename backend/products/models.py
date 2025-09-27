@@ -197,8 +197,22 @@ class Product(models.Model):
         Raises:
             ValidationError: If validation fails
         """
+        # Convert price to Decimal if it's a string
+        if isinstance(self.price, str):
+            try:
+                self.price = Decimal(self.price)
+            except (ValueError, TypeError):
+                raise ValidationError('Invalid price format.')
+        
         if self.price <= 0:
             raise ValidationError('Product price must be positive.')
+
+        # Convert stock_quantity to int if it's a string
+        if isinstance(self.stock_quantity, str):
+            try:
+                self.stock_quantity = int(self.stock_quantity)
+            except (ValueError, TypeError):
+                raise ValidationError('Invalid stock quantity format.')
 
         if self.stock_quantity < 0:
             raise ValidationError('Stock quantity cannot be negative.')
